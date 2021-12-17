@@ -1,0 +1,77 @@
+{
+ "actions": [],
+ "autoname": "field:fleet_name",
+ "creation": "2021-12-16 17:08:17.776192",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "fleet_name",
+  "from_location",
+  "to_location",
+  "price",
+  "return_trip_price"
+ ],
+ "fields": [
+  {
+   "fieldname": "fleet_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Fleet Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "from_location",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "From Location",
+   "options": "Area Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_location",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "To Location",
+   "options": "Area Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "One Way Price"
+  },
+  {
+   "fieldname": "return_trip_price",
+   "fieldtype": "Currency",
+   "label": "Return Trip Price"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-12-16 19:03:23.835754",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Fleet Price List",
+ "name_case": "UPPER CASE",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

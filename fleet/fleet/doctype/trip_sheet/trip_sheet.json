@@ -10,28 +10,36 @@
   "consignor_c",
   "amended_from",
   "loading_point_c",
+  "price",
+  "is_return_trip",
   "vehicle_no_c",
   "e_way_bill_c",
   "column_break_3",
   "consignee_c",
   "destination_c",
+  "driver",
+  "driver_name",
   "driver_c"
  ],
  "fields": [
   {
    "fieldname": "consignor_c",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Consignor",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Amended From",
    "no_copy": 1,
    "options": "Trip Sheet",
    "print_hide": 1,
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "column_break_3",
@@ -40,43 +48,85 @@
   {
    "fieldname": "consignee_c",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Consignee",
-   "options": "Consignee"
+   "options": "Consignee",
+   "reqd": 1
   },
   {
    "fieldname": "loading_point_c",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Loading Point",
-   "options": "Area Name"
+   "options": "Area Name",
+   "reqd": 1
   },
   {
    "fieldname": "destination_c",
    "fieldtype": "Link",
    "label": "Destination",
-   "options": "Area Name"
+   "options": "Area Name",
+   "reqd": 1
   },
   {
    "fieldname": "vehicle_no_c",
    "fieldtype": "Link",
    "label": "Vehicle No",
-   "options": "Truck"
+   "options": "Vehicle",
+   "reqd": 1
   },
   {
-   "fetch_from": "vehicle_no_c.mobile_no_c",
+   "fetch_from": "driver.cell_number",
    "fieldname": "driver_c",
    "fieldtype": "Data",
-   "label": "Driver Mobile No"
+   "label": "Driver Mobile No",
+   "read_only": 1
   },
   {
    "fieldname": "e_way_bill_c",
    "fieldtype": "Data",
    "label": "E Way Bill No"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_return_trip",
+   "fieldtype": "Check",
+   "label": "Is Return Trip"
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver",
+   "options": "Driver",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "driver.full_name",
+   "fieldname": "driver_name",
+   "fieldtype": "Data",
+   "label": "Driver Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2021-12-14 17:10:12.228743",
+ "links": [
+  {
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "trip_sheet_ref"
+  },
+  {
+   "link_doctype": "Purchase Invoice",
+   "link_fieldname": "trip_sheet_no"
+  }
+ ],
+ "modified": "2021-12-17 18:59:55.969157",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Trip Sheet",
