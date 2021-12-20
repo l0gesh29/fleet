@@ -74,8 +74,8 @@ def insert_Payment(cur_doc, price):
 	pe.party_type = 'Customer'
 	pe.party = doc.get("consignor_c")
 	pe.paid_from = frappe.db.get_value("Company",company,"default_receivable_account")
-	pe.received_amount = price
-	pe.paid_amount = price
+	pe.received_amount = float(price)
+	pe.paid_amount = float(price)
 	# pe.received_amount_after_tax = price
 	pe.target_exchange_rate = 1
 	pe.paid_to = frappe.db.get_value("Company",company,"default_cash_account")
