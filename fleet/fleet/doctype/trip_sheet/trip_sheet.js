@@ -4,7 +4,7 @@
 frappe.ui.form.on('Trip Sheet', {
 	refresh: function(frm) {
 
-		frm.add_custom_button("Payment Entry",function(){
+		frm.add_custom_button("Customer Advance",function(){
 			debugger;
 
 			// frappe.call({
@@ -39,7 +39,7 @@ frappe.ui.form.on('Trip Sheet', {
 						},
 						"callback":function(res){
 							console.log(res)
-							frappe.msgprint("Payment Entry of " + values.price + " is created successfully for customer " + frm.doc.consignor_c)
+							frappe.msgprint("Customer Advance of " + values.price + " is created successfully for Customer " + frm.doc.consignor_c)
 							// frappe.set_route('Form', 'Payment Entry', res.message);
 						}
 					})
@@ -86,6 +86,17 @@ frappe.ui.form.on('Trip Sheet', {
 			doc.trip_vehicle_no = frm.doc.vehicle_no_c;
 			
 			frappe.set_route('Form', 'Purchase Invoice', doc.name);
+		}, __("Create"))
+
+		frm.add_custom_button("Expense Claim",function(){
+			
+
+			var doc = frappe.model.get_new_doc('Expense Claim');
+			doc.trip_sheet = frm.doc.name;
+			doc.vehicle_no_c = frm.doc.vehicle_no_c;
+			doc.employee = frm.doc.employee
+			
+			frappe.set_route('Form', 'Expense Claim', doc.name);
 		}, __("Create"))
 	},
 	loading_point_c: function(frm){

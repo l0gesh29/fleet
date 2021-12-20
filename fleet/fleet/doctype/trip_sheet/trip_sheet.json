@@ -8,7 +8,6 @@
  "engine": "InnoDB",
  "field_order": [
   "consignor_c",
-  "amended_from",
   "loading_point_c",
   "price",
   "is_return_trip",
@@ -18,6 +17,7 @@
   "consignee_c",
   "destination_c",
   "driver",
+  "employee",
   "driver_name",
   "driver_c"
  ],
@@ -28,17 +28,6 @@
    "in_list_view": 1,
    "label": "Consignor",
    "options": "Customer",
-   "reqd": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Trip Sheet",
-   "print_hide": 1,
-   "read_only": 1,
    "reqd": 1
   },
   {
@@ -112,6 +101,13 @@
    "fieldtype": "Data",
    "label": "Driver Name",
    "read_only": 1
+  },
+  {
+   "fetch_from": "driver.employee",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -124,9 +120,13 @@
   {
    "link_doctype": "Purchase Invoice",
    "link_fieldname": "trip_sheet_no"
+  },
+  {
+   "link_doctype": "Expense Claim",
+   "link_fieldname": "trip_sheet"
   }
  ],
- "modified": "2021-12-17 18:59:55.969157",
+ "modified": "2021-12-20 20:12:19.040862",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Trip Sheet",

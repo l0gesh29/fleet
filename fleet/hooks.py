@@ -180,7 +180,9 @@ fixtures = [
                 "Purchase Invoice-trip_sheet_no",
                 "Purchase Invoice-trip_vehicle_no",
 				"Sales Invoice-trip_sheet_ref",
-				"Sales Invoice-trip_vehicle_no"
+				"Sales Invoice-trip_vehicle_no",
+				"Expense Claim-trip_sheet",
+				"Expense Claim-vehicle_no_c"
             ]
         ]
     ]}
