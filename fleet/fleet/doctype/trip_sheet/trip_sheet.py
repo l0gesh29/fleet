@@ -62,6 +62,7 @@ def insert_sales_invoice(cur_doc):
 
 @frappe.whitelist()
 def insert_Payment(cur_doc, price):
+	company = frappe.db.get_value("Global Defaults",None,"default_company")
 	doc = frappe.get_doc('Trip Sheet', cur_doc)
 
 	pe = frappe.new_doc("Payment Entry")
@@ -72,13 +73,13 @@ def insert_Payment(cur_doc, price):
 	pe.mode_of_payment = 'Cash'
 	pe.party_type = 'Customer'
 	pe.party = doc.get("consignor_c")
-	pe.paid_from = 'Debtors - A'
+	pe.paid_from = frappe.db.get_value("Company",company,"default_receivable_account")
 	pe.received_amount = price
 	pe.paid_amount = price
 	# pe.received_amount_after_tax = price
 	pe.target_exchange_rate = 1
-	pe.paid_to = 'Cash - A'
-	pe.paid_to_account_currency = 'INR'
+	pe.paid_to = frappe.db.get_value("Company",company,"default_cash_account")
+	pe.paid_to_account_currency = frappe.db.get_value("Company",company,"default_currency")
 	# pe.contact_person = doc.get("contact_person")
 	# pe.contact_email = doc.get("contact_email")
 	pe.save()
