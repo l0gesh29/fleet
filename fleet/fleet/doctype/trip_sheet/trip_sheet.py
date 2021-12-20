@@ -26,6 +26,7 @@ def get_price(from_dest, to_dest):
 
 @frappe.whitelist()
 def insert_sales_invoice(cur_doc):
+	company = frappe.db.get_value("Global Defaults",None,"default_company")
 	check_invoice = frappe.db.get_list('Sales Invoice', filters={
 		'trip_sheet_ref': ['=', cur_doc]
 		},
@@ -50,7 +51,7 @@ def insert_sales_invoice(cur_doc):
 			'rate': doc.get("price"),
 			'uom': 'Nos',
 			'amount': doc.get("price"),
-			'income_account': 'Sales - A'
+			'income_account': frappe.db.get_value("Company",company,"default_income_account")
 		})
 		sales_invoice.grand_total = doc.get("price")
 
