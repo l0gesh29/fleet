@@ -1,0 +1,85 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-01-14 11:44:27.526469",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "account_name_c",
+  "loading_point_c",
+  "destination_c",
+  "vehicle_c",
+  "one_way_c",
+  "two_way_c",
+  "consignee_c",
+  "agent_c"
+ ],
+ "fields": [
+  {
+   "fieldname": "account_name_c",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Account Name"
+  },
+  {
+   "fieldname": "loading_point_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Loading Point",
+   "options": "Destination"
+  },
+  {
+   "fieldname": "destination_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Destination",
+   "options": "Destination"
+  },
+  {
+   "fieldname": "vehicle_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Vehicle",
+   "options": "Truck Type"
+  },
+  {
+   "fieldname": "one_way_c",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "One Way"
+  },
+  {
+   "fieldname": "two_way_c",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Two Way"
+  },
+  {
+   "fieldname": "consignee_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Consignee",
+   "options": "Consignee"
+  },
+  {
+   "fieldname": "agent_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Agent",
+   "options": "Company"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-01-18 13:05:30.843414",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "LH Master Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

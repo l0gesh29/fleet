@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-02-03 10:57:15.266812",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "contents_c",
+  "quantity_c",
+  "weight_c",
+  "remarks_c"
+ ],
+ "fields": [
+  {
+   "fieldname": "contents_c",
+   "fieldtype": "Link",
+   "label": "Contents",
+   "options": "Item"
+  },
+  {
+   "fieldname": "quantity_c",
+   "fieldtype": "Float",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "weight_c",
+   "fieldtype": "Float",
+   "label": "Weight"
+  },
+  {
+   "fieldname": "remarks_c",
+   "fieldtype": "Data",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-02-03 10:57:23.334145",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Trip Allocation Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

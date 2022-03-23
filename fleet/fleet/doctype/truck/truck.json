@@ -1,12 +1,13 @@
 {
  "actions": [],
- "autoname": "TR.####",
+ "autoname": "field:license_plate_c",
  "creation": "2021-12-09 17:19:13.970641",
  "doctype": "DocType",
  "document_type": "Document",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "customer",
   "license_plate",
   "license_plate_c",
   "make_c",
@@ -20,10 +21,23 @@
   "acquisition_date_c",
   "location",
   "location_c",
+  "employee_c",
   "column_break_8",
+  "vehicle_no_c",
   "chassis_no_c",
   "vehicle_value_c",
-  "employee_c",
+  "fitness_certificate_validity_date_c",
+  "permit_details_c_section",
+  "state_1_c",
+  "state_2_c",
+  "valid_till_c",
+  "column_break_23",
+  "state_3_c",
+  "state_4_c",
+  "taxes_c_section",
+  "from_date_c",
+  "column_break_27",
+  "to_date_c",
   "insurance_details_c",
   "insurance_company_c",
   "policy_no_c",
@@ -38,14 +52,22 @@
   "color_c",
   "wheels_c",
   "doors_c",
-  "amended_from_c"
+  "amended_from_c",
+  "attachments_c_section",
+  "permit_c",
+  "insurance_c",
+  "column_break_50",
+  "taxes_c",
+  "fitness_certificate_c",
+  "column_break_53",
+  "rc_copy_c"
  ],
  "fields": [
   {
    "fieldname": "license_plate",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "License Plate",
+   "label": "License Plate not needed",
    "no_copy": 1,
    "unique": 1
   },
@@ -162,7 +184,7 @@
   {
    "fieldname": "carbon_check_date_c",
    "fieldtype": "Date",
-   "label": "Last Carbon Check"
+   "label": "Carbon Control Check"
   },
   {
    "fieldname": "column_break_21",
@@ -175,8 +197,9 @@
   },
   {
    "fieldname": "wheels_c",
-   "fieldtype": "Int",
-   "label": "Wheels"
+   "fieldtype": "Link",
+   "label": "Wheels",
+   "options": "Wheels"
   },
   {
    "fieldname": "doors_c",
@@ -208,12 +231,12 @@
   {
    "fieldname": "vehicle_details",
    "fieldtype": "Section Break",
-   "label": "Details"
+   "label": "Vehicle Details"
   },
   {
    "fieldname": "license_plate_c",
    "fieldtype": "Data",
-   "label": "License Plate C",
+   "label": "License Plate",
    "unique": 1
   },
   {
@@ -227,10 +250,121 @@
    "fieldname": "mobile_no_c",
    "fieldtype": "Data",
    "label": "Mobile No C"
+  },
+  {
+   "fieldname": "vehicle_no_c",
+   "fieldtype": "Data",
+   "label": "Engine No"
+  },
+  {
+   "fieldname": "permit_details_c_section",
+   "fieldtype": "Section Break",
+   "label": "Permit Details "
+  },
+  {
+   "fieldname": "valid_till_c",
+   "fieldtype": "Date",
+   "label": "Valid Till "
+  },
+  {
+   "fieldname": "state_1_c",
+   "fieldtype": "Select",
+   "label": "State 1 ",
+   "options": "\nAndaman and Nicobar Islands\nAndhra Pradesh\nArunachal Pradesh\nAssam\nBihar\nChhattisgarh\nChandigarh\nDadra & Nagar Haveli and Daman & Diu\nDelhi\nGoa\nGujarat\nHaryana\nHimachal Pradesh\nJammu and Kashmir\nJharkhand\nKarnataka\nKerala\nLadakh\nLakshadweep\nMadhya Pradesh\nMaharashtra\nManipur\nMeghalaya\nMizoram\nNagaland\nOdisha\nPuducherry\nPunjab\nRajasthan\nSikkim\nTamil Nadu\nTelangana\nTripura\nUttar Pradesh\nUttarakhand\nWest Bengal"
+  },
+  {
+   "fieldname": "state_2_c",
+   "fieldtype": "Select",
+   "label": "State 2 ",
+   "options": "\nAndaman and Nicobar Islands\nAndhra Pradesh\nArunachal Pradesh\nAssam\nBihar\nChhattisgarh\nChandigarh\nDadra & Nagar Haveli and Daman & Diu\nDelhi\nGoa\nGujarat\nHaryana\nHimachal Pradesh\nJammu and Kashmir\nJharkhand\nKarnataka\nKerala\nLadakh\nLakshadweep\nMadhya Pradesh\nMaharashtra\nManipur\nMeghalaya\nMizoram\nNagaland\nOdisha\nPuducherry\nPunjab\nRajasthan\nSikkim\nTamil Nadu\nTelangana\nTripura\nUttar Pradesh\nUttarakhand\nWest Bengal"
+  },
+  {
+   "fieldname": "state_3_c",
+   "fieldtype": "Select",
+   "label": "State 3 ",
+   "options": "\nAndaman and Nicobar Islands\nAndhra Pradesh\nArunachal Pradesh\nAssam\nBihar\nChhattisgarh\nChandigarh\nDadra & Nagar Haveli and Daman & Diu\nDelhi\nGoa\nGujarat\nHaryana\nHimachal Pradesh\nJammu and Kashmir\nJharkhand\nKarnataka\nKerala\nLadakh\nLakshadweep\nMadhya Pradesh\nMaharashtra\nManipur\nMeghalaya\nMizoram\nNagaland\nOdisha\nPuducherry\nPunjab\nRajasthan\nSikkim\nTamil Nadu\nTelangana\nTripura\nUttar Pradesh\nUttarakhand\nWest Bengal"
+  },
+  {
+   "fieldname": "state_4_c",
+   "fieldtype": "Select",
+   "label": "State 4 ",
+   "options": "\nAndaman and Nicobar Islands\nAndhra Pradesh\nArunachal Pradesh\nAssam\nBihar\nChhattisgarh\nChandigarh\nDadra & Nagar Haveli and Daman & Diu\nDelhi\nGoa\nGujarat\nHaryana\nHimachal Pradesh\nJammu and Kashmir\nJharkhand\nKarnataka\nKerala\nLadakh\nLakshadweep\nMadhya Pradesh\nMaharashtra\nManipur\nMeghalaya\nMizoram\nNagaland\nOdisha\nPuducherry\nPunjab\nRajasthan\nSikkim\nTamil Nadu\nTelangana\nTripura\nUttar Pradesh\nUttarakhand\nWest Bengal"
+  },
+  {
+   "fieldname": "taxes_c_section",
+   "fieldtype": "Section Break",
+   "label": "Taxes "
+  },
+  {
+   "fieldname": "from_date_c",
+   "fieldtype": "Date",
+   "label": "From Date "
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "to_date_c",
+   "fieldtype": "Date",
+   "label": "To Date "
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fitness_certificate_validity_date_c",
+   "fieldtype": "Date",
+   "label": "Fitness Certificate Validity Date"
+  },
+  {
+   "fieldname": "attachments_c_section",
+   "fieldtype": "Section Break",
+   "label": "Attachments "
+  },
+  {
+   "fieldname": "permit_c",
+   "fieldtype": "Attach",
+   "label": "Permit "
+  },
+  {
+   "fieldname": "insurance_c",
+   "fieldtype": "Attach",
+   "label": "Insurance "
+  },
+  {
+   "fieldname": "column_break_50",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "taxes_c",
+   "fieldtype": "Attach",
+   "label": "Taxes "
+  },
+  {
+   "fieldname": "fitness_certificate_c",
+   "fieldtype": "Attach",
+   "label": "Fitness Certificate "
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_53",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rc_copy_c",
+   "fieldtype": "Attach",
+   "label": "Registration Certificate"
   }
  ],
  "links": [],
- "modified": "2021-12-14 17:10:12.526342",
+ "modified": "2022-02-08 11:43:28.640719",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Truck",

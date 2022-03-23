@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-01-24 14:01:46.559525",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "packages_c",
+  "weight_c",
+  "column_break_3",
+  "quantity_c",
+  "remarks_c"
+ ],
+ "fields": [
+  {
+   "fieldname": "packages_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Packages ",
+   "options": "Item"
+  },
+  {
+   "fieldname": "weight_c",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weight "
+  },
+  {
+   "fieldname": "quantity_c",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity "
+  },
+  {
+   "fieldname": "remarks_c",
+   "fieldtype": "Data",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-02-03 14:57:30.791042",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Final Trip Sheet Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

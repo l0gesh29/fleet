@@ -89,13 +89,11 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Payment Entry": {
+ 		"on_submit": "fleet.fleet.doctype.trip_allocation.trip_allocation.o_amount"
+	}
+}
 
 # Scheduled Tasks
 # ---------------

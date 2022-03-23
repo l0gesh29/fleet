@@ -7,23 +7,84 @@ from frappe.utils import nowdate
 import json
 
 class TripSheet(Document):
-	pass
+	def on_submit(self):
+		doc=frappe.new_doc("Trip Allocation")
+		doc.consignor_c=self.consignor_c
+		doc.branch_c=self.branch
+		#doc.consignee_c=self.consignee_c
+		doc.date_c=self.date_c
+		doc.loading_point_c=self.loading_point_c
+		doc.destination_c=self.destination_c
+		doc.one_way=self.one_way
+		doc.two_way=self.two_way
+		doc.lorry_hire=self.price
+		doc.linked_trip_order_c=self.name
+		doc.vehicle_type_c=self.vehicle_type_c
+		address = frappe.db.get_value("Dynamic Link",{"link_doctype":"Consignor","link_name":self.consignor_c},"parent")
+	#	doc.consignor_address_display = get_address_display(address)
+		doc.save()
+		doc_name=frappe.db.get_value("Trip Allocation",{"linked_trip_order_c":self.name},"name")
+		link="/app/trip-allocation/"+doc_name
+		frappe.msgprint("Trip Allocation Created <a href="+link+">"+doc_name+"</a>")
+	#@frappe.whitelist()
+	def before_submit(self):
+		#args=json.loads(args)
+		l_lh=frappe.db.get_value("LH Master",{"consignor_c":self.consignor_c,'from': ["<=", self.date_c ],'to': [">=", self.date_c ]},"name")
+		frappe.errprint(l_lh)
+		res=0
+		if l_lh:
+			doc=frappe.get_doc("LH Master",l_lh)
+			for row in doc.lh_master_table:
+				if row.loading_point_c == self.loading_point_c and row.destination_c == self.destination_c:
+					if self.one_way:
+						#frappe.errprint(row.one_way_c)
+						res=row.one_way_c
+					elif self.two_way:
+						res=row.two_way_c
+		#if not res:
+		#	frappe.throw("No Price in LH Master for this route")
+		#else:
+#			frappe.errprint(res)
+			self.price=res
+
+	#else:
+	#	frappe.throw("No LH Master for this date "f'{date_c}')
+
+#@frappe.whitelist()
+#def get_price(from_dest, to_dest):
+#	
+#	data = frappe.db.get_list('Fleet Price List', filters={
+#		'from_location': ['=', from_dest],
+#		'to_location': ['=', to_dest]
+#		},
+#		fields=['name', 'price', 'return_trip_price'],
+#	)
+#
+#	if data == []:
+#		return 0
+#	else:	
+#		return data
 
 @frappe.whitelist()
-def get_price(from_dest, to_dest):
-	
-	data = frappe.db.get_list('Fleet Price List', filters={
-		'from_location': ['=', from_dest],
-		'to_location': ['=', to_dest]
-		},
-		fields=['name', 'price', 'return_trip_price'],
-	)
-
-	if data == []:
-		return 0
-	else:	
-		return data
-
+def vehicle_type(consignor):
+	v_t = frappe.db.get_list("Vehicle Type Table",{"parent":consignor},"vehicle_type")
+	if v_t:
+		v = []
+		for row in v_t:
+			v.append(row.vehicle_type)
+		return v
+	else:
+		return v_t
+@frappe.whitelist()
+def branch(branch):
+	b = frappe.db.get_list("Destination Table",{"parent":branch},"destination")
+	if b:
+		b_l = []
+		for row in b:
+			b_l.append(row.destination)
+		return b_l
+	else:
+		return b
 @frappe.whitelist()
 def insert_sales_invoice(cur_doc):
 	company = frappe.db.get_value("Global Defaults",None,"default_company")

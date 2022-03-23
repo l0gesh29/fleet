@@ -1,25 +1,39 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "TS.#####",
+ "autoname": "TO.#####",
  "creation": "2021-12-11 18:09:33.739322",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "consignor_c",
+  "amended_from",
   "loading_point_c",
   "price",
-  "is_return_trip",
+  "one_way",
+  "two_way",
+  "no_of_vehicles",
   "vehicle_no_c",
   "e_way_bill_c",
   "column_break_3",
   "consignee_c",
+  "branch",
   "destination_c",
+  "date_c",
+  "vehicle_type_c",
+  "product_group_c",
   "driver",
-  "employee",
   "driver_name",
-  "driver_c"
+  "driver_c",
+  "reference_c",
+  "section_break_15",
+  "product_c",
+  "email_c",
+  "column_break_18",
+  "photo_c",
+  "number_c",
+  "lr_c"
  ],
  "fields": [
   {
@@ -27,7 +41,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Consignor",
-   "options": "Customer",
+   "options": "Consignor",
    "reqd": 1
   },
   {
@@ -37,77 +51,165 @@
   {
    "fieldname": "consignee_c",
    "fieldtype": "Link",
-   "in_list_view": 1,
+   "hidden": 1,
    "label": "Consignee",
-   "options": "Consignee",
-   "reqd": 1
+   "options": "Consignee"
   },
   {
+   "fetch_from": "consignor_c.loading_point_c",
    "fieldname": "loading_point_c",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Loading Point",
-   "options": "Area Name",
+   "options": "Destination",
    "reqd": 1
   },
   {
    "fieldname": "destination_c",
    "fieldtype": "Link",
    "label": "Destination",
-   "options": "Area Name",
+   "options": "Destination",
    "reqd": 1
   },
   {
    "fieldname": "vehicle_no_c",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Vehicle No",
-   "options": "Vehicle",
-   "reqd": 1
+   "options": "Vehicle"
   },
   {
    "fetch_from": "driver.cell_number",
    "fieldname": "driver_c",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Driver Mobile No",
    "read_only": 1
   },
   {
    "fieldname": "e_way_bill_c",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "E Way Bill No"
   },
   {
+   "default": "0",
    "fieldname": "price",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Price",
    "read_only": 1
   },
   {
-   "default": "0",
-   "fieldname": "is_return_trip",
-   "fieldtype": "Check",
-   "label": "Is Return Trip"
-  },
-  {
    "fieldname": "driver",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Driver",
-   "options": "Driver",
-   "reqd": 1
+   "options": "Driver"
   },
   {
    "fetch_from": "driver.full_name",
    "fieldname": "driver_name",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Driver Name",
    "read_only": 1
   },
   {
-   "fetch_from": "driver.employee",
-   "fieldname": "employee",
+   "fieldname": "amended_from",
    "fieldtype": "Link",
-   "label": "Employee",
-   "options": "Employee"
+   "in_list_view": 1,
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Trip Sheet",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "one_way",
+   "fieldtype": "Check",
+   "label": "One Way"
+  },
+  {
+   "default": "0",
+   "fieldname": "two_way",
+   "fieldtype": "Check",
+   "label": "Two Way"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date_c",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "reference_c",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "product_c",
+   "fieldtype": "Link",
+   "label": "Product",
+   "options": "Item"
+  },
+  {
+   "fetch_from": "product_c.item_group",
+   "fieldname": "product_group_c",
+   "fieldtype": "Link",
+   "label": "Product Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "email_c",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "photo_c",
+   "fieldtype": "Attach",
+   "label": "Photo"
+  },
+  {
+   "fieldname": "number_c",
+   "fieldtype": "Data",
+   "label": "Number"
+  },
+  {
+   "fieldname": "lr_c",
+   "fieldtype": "Link",
+   "label": "CREATE/UPDATE LR",
+   "options": "LR"
+  },
+  {
+   "fieldname": "vehicle_type_c",
+   "fieldtype": "Link",
+   "label": "Vehicle Type",
+   "options": "Truck Type"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branches"
+  },
+  {
+   "default": "1",
+   "fieldname": "no_of_vehicles",
+   "fieldtype": "Data",
+   "label": "No of Vehicles",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -122,11 +224,12 @@
    "link_fieldname": "trip_sheet_no"
   },
   {
-   "link_doctype": "Expense Claim",
-   "link_fieldname": "trip_sheet"
+   "group": "Trip Allocation",
+   "link_doctype": "Trip Allocation",
+   "link_fieldname": "linked_trip_order_c"
   }
  ],
- "modified": "2021-12-20 20:12:19.040862",
+ "modified": "2022-03-23 12:39:16.860947",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Trip Sheet",

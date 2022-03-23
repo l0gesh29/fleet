@@ -1,0 +1,179 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:name_c",
+ "creation": "2022-01-06 11:44:17.719233",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name_c",
+  "loading_point_c",
+  "contact_person_c",
+  "column_break_3",
+  "branch_c",
+  "vehicle_type",
+  "address_c_section",
+  "address_html",
+  "column_break_10",
+  "section_break_6",
+  "mobile_c",
+  "email_c",
+  "column_break_9",
+  "alt_mobile_no_c",
+  "alt_email_c",
+  "section_break_12",
+  "std_c",
+  "phone_no_c",
+  "gst_c",
+  "column_break_16",
+  "vendor_code_c",
+  "product_group_c",
+  "pan_c"
+ ],
+ "fields": [
+  {
+   "fieldname": "name_c",
+   "fieldtype": "Data",
+   "label": "Consignor Name ",
+   "unique": 1
+  },
+  {
+   "fieldname": "contact_person_c",
+   "fieldtype": "Data",
+   "label": "Contact Person"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "loading_point_c",
+   "fieldtype": "Link",
+   "label": "Loading Point",
+   "options": "Destination"
+  },
+  {
+   "fieldname": "branch_c",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branches"
+  },
+  {
+   "depends_on": "eval: !doc.__islocal",
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "mobile_c",
+   "fieldtype": "Data",
+   "label": "Mobile "
+  },
+  {
+   "fieldname": "email_c",
+   "fieldtype": "Data",
+   "label": "Email "
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "alt_mobile_no_c",
+   "fieldtype": "Data",
+   "label": "Alt Mobile No"
+  },
+  {
+   "fieldname": "alt_email_c",
+   "fieldtype": "Data",
+   "label": "Alt Email"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "std_c",
+   "fieldtype": "Data",
+   "label": "STD"
+  },
+  {
+   "fieldname": "phone_no_c",
+   "fieldtype": "Data",
+   "label": "Phone No"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vendor_code_c",
+   "fieldtype": "Data",
+   "label": "Vendor Code"
+  },
+  {
+   "fieldname": "gst_c",
+   "fieldtype": "Data",
+   "label": "GST"
+  },
+  {
+   "fieldname": "pan_c",
+   "fieldtype": "Data",
+   "label": "PAN"
+  },
+  {
+   "depends_on": "eval: !doc.__islocal",
+   "fieldname": "address_c_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "product_group_c",
+   "fieldtype": "Link",
+   "label": "Product Group",
+   "options": "Item Group"
+  },
+  {
+   "depends_on": "eval: !doc.__islocal",
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: !doc.__islocal",
+   "fieldname": "address_html",
+   "fieldtype": "HTML",
+   "label": "Consignor Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vehicle_type",
+   "fieldtype": "Table",
+   "label": "Vehicle Type",
+   "options": "Vehicle Type Table"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-03-23 11:23:09.454808",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Consignor",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

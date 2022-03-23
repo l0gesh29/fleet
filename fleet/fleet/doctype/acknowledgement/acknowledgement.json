@@ -1,0 +1,473 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "ACK.####",
+ "creation": "2022-03-04 10:19:34.568612",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "consignor_c",
+  "consignor_mobile_no_c",
+  "loading_point_c",
+  "vehicle_type_c",
+  "date_c",
+  "remarks",
+  "column_break_7",
+  "branch_c",
+  "destination_c",
+  "consignee_c",
+  "consignee_mobile_no_c",
+  "reference_c",
+  "product_group",
+  "section_break_18",
+  "customer",
+  "supplier",
+  "vehicle_reg_no",
+  "market_vehicle_no_c",
+  "lorry_hire",
+  "market_lorry_hire_c",
+  "vehicle_type",
+  "column_break_23",
+  "advance_amount",
+  "outstanding_amount",
+  "market_advance_amount_c",
+  "driver",
+  "market_driver_c",
+  "driver_mobile",
+  "market_driver_mobile_c",
+  "pan_no",
+  "mode_of_payment_c",
+  "payment_reference_c",
+  "section_break_15",
+  "item",
+  "addition_section",
+  "addition",
+  "deduction_section",
+  "deduction",
+  "section_break_17",
+  "e_way_bill_no",
+  "total_quantity_c",
+  "column_break_18",
+  "amount_c",
+  "total_addition",
+  "total_deduction",
+  "section_break_20",
+  "invoice_no_c",
+  "grn_c",
+  "column_break_22",
+  "shipment_no_c",
+  "address_section",
+  "consignee_address",
+  "consignee_address_display",
+  "column_break_28",
+  "consignor_address",
+  "consignor_address_display",
+  "one_way",
+  "two_way",
+  "company",
+  "amended_from",
+  "final_trip_sheet"
+ ],
+ "fields": [
+  {
+   "fieldname": "consignor_c",
+   "fieldtype": "Link",
+   "label": "Consignor",
+   "options": "Consignor"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "consignor.mobile_c",
+   "fieldname": "consignor_mobile_no_c",
+   "fieldtype": "Data",
+   "label": "Consignor Mobile No "
+  },
+  {
+   "fieldname": "loading_point_c",
+   "fieldtype": "Link",
+   "label": "Loading Point",
+   "options": "Destination"
+  },
+  {
+   "fieldname": "vehicle_type_c",
+   "fieldtype": "Link",
+   "label": "Vehicle Type",
+   "options": "Truck Type"
+  },
+  {
+   "fieldname": "date_c",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "branch_c",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branches"
+  },
+  {
+   "fieldname": "destination_c",
+   "fieldtype": "Link",
+   "label": "Destination",
+   "options": "Destination"
+  },
+  {
+   "fieldname": "consignee_c",
+   "fieldtype": "Link",
+   "label": "Consignee",
+   "options": "Consignee"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "consignee.mobile_c",
+   "fieldname": "consignee_mobile_no_c",
+   "fieldtype": "Data",
+   "label": "Consignee Mobile No "
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "reference_c",
+   "fieldtype": "Link",
+   "label": "Reference",
+   "options": "Payment Entry"
+  },
+  {
+   "fieldname": "product_group",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Product Group"
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "vehicle_reg_no",
+   "fieldtype": "Link",
+   "label": "Vehicle No",
+   "options": "Truck"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_vehicle_no_c",
+   "fieldtype": "Data",
+   "label": "Market Vehicle No"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "lorry_hire",
+   "fieldtype": "Currency",
+   "label": "Lorry Hire"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_lorry_hire_c",
+   "fieldtype": "Currency",
+   "label": "Market Lorry Hire"
+  },
+  {
+   "fieldname": "vehicle_type",
+   "fieldtype": "Select",
+   "label": "Allocation Type",
+   "options": "\nOwn Vehicle\nMarket Vehicle"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "advance_amount",
+   "fieldtype": "Currency",
+   "label": "Advance Amount"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "outstanding_amount",
+   "fieldtype": "Currency",
+   "label": "Outstanding Amount",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_advance_amount_c",
+   "fieldtype": "Currency",
+   "label": "Market Advance Amount"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver Name",
+   "options": "Truck Driver"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_driver_c",
+   "fieldtype": "Data",
+   "label": "Market Driver"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "driver_mobile",
+   "fieldtype": "Data",
+   "label": "Driver Mobile"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_driver_mobile_c",
+   "fieldtype": "Data",
+   "label": "Market Driver Mobile"
+  },
+  {
+   "fieldname": "pan_no",
+   "fieldtype": "Data",
+   "label": "PAN No"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "mode_of_payment_c",
+   "fieldtype": "Link",
+   "label": "Mode of Payment",
+   "options": "Mode of Payment",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "payment_reference_c",
+   "fieldtype": "Link",
+   "label": "Payment Reference",
+   "options": "Payment Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "item",
+   "fieldtype": "Table",
+   "label": "Package",
+   "options": "Final Trip Sheet Item"
+  },
+  {
+   "fieldname": "addition_section",
+   "fieldtype": "Section Break",
+   "label": "Addition"
+  },
+  {
+   "fieldname": "addition",
+   "fieldtype": "Table",
+   "label": "Addition",
+   "options": "Addition"
+  },
+  {
+   "fieldname": "deduction_section",
+   "fieldtype": "Section Break",
+   "label": "Deduction"
+  },
+  {
+   "fieldname": "deduction",
+   "fieldtype": "Table",
+   "label": "Deduction",
+   "options": "Deduction"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "e_way_bill_no",
+   "fieldtype": "Data",
+   "label": "E way Bill No",
+   "unique": 1
+  },
+  {
+   "fieldname": "total_quantity_c",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Total Quantity"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "amount_c",
+   "fieldtype": "Currency",
+   "label": "Total Amount "
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_addition",
+   "fieldtype": "Currency",
+   "label": "Total Addition"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_deduction",
+   "fieldtype": "Currency",
+   "label": "Total Deduction"
+  },
+  {
+   "fieldname": "section_break_20",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "invoice_no_c",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Invoice No "
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "grn_c",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "GRN"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break",
+   "hidden": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "shipment_no_c",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Shipment No "
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "consignee_address",
+   "fieldtype": "Link",
+   "label": "Consignee Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "consignee_address_display",
+   "fieldtype": "Text",
+   "label": "Consignee Address Display",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_28",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consignor_address",
+   "fieldtype": "Link",
+   "label": "Consignor Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "consignor_address_display",
+   "fieldtype": "Text",
+   "label": "Consignor Address Display",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "one_way",
+   "fieldtype": "Check",
+   "label": "One Way",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "two_way",
+   "fieldtype": "Check",
+   "label": "Two Way",
+   "read_only": 1
+  },
+  {
+   "default": "Southern Cargo Logistics Private Limited",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Acknowledgement",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "final_trip_sheet",
+   "fieldtype": "Link",
+   "label": "Final Trip Sheet",
+   "options": "Final Trip Sheet"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Payment Entry",
+   "link_doctype": "Payment Entry",
+   "link_fieldname": "linked_final_trip_sheet"
+  }
+ ],
+ "modified": "2022-03-14 16:08:13.467772",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Acknowledgement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

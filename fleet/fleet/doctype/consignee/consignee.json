@@ -8,14 +8,33 @@
  "engine": "InnoDB",
  "field_order": [
   "name_c",
+  "loading_point_c",
+  "contact_person_c",
+  "column_break_3",
+  "branch_c",
+  "section_break_6",
   "mobile_c",
-  "email_c"
+  "email_c",
+  "column_break_9",
+  "alt_mobile_no_c",
+  "alt_email_c",
+  "address_c_section",
+  "address_html",
+  "column_break_23",
+  "section_break_12",
+  "std_c",
+  "phone_no_c",
+  "gst_c",
+  "column_break_16",
+  "vendor_code_c",
+  "product_group_c",
+  "pan_c"
  ],
  "fields": [
   {
    "fieldname": "name_c",
    "fieldtype": "Data",
-   "label": "Name ",
+   "label": "Consignee Name ",
    "unique": 1
   },
   {
@@ -27,11 +46,105 @@
    "fieldname": "email_c",
    "fieldtype": "Data",
    "label": "Email "
+  },
+  {
+   "fieldname": "contact_person_c",
+   "fieldtype": "Data",
+   "label": "Contact Person"
+  },
+  {
+   "fieldname": "loading_point_c",
+   "fieldtype": "Link",
+   "label": "Loading Point",
+   "options": "Destination"
+  },
+  {
+   "fieldname": "branch_c",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branches"
+  },
+  {
+   "fieldname": "alt_mobile_no_c",
+   "fieldtype": "Data",
+   "label": "Alt Mobile No"
+  },
+  {
+   "fieldname": "std_c",
+   "fieldtype": "Data",
+   "label": "STD"
+  },
+  {
+   "fieldname": "vendor_code_c",
+   "fieldtype": "Data",
+   "label": "Vendor Code"
+  },
+  {
+   "fieldname": "alt_email_c",
+   "fieldtype": "Data",
+   "label": "Alt Email"
+  },
+  {
+   "fieldname": "phone_no_c",
+   "fieldtype": "Data",
+   "label": "Phone No"
+  },
+  {
+   "fieldname": "gst_c",
+   "fieldtype": "Data",
+   "label": "GST"
+  },
+  {
+   "fieldname": "pan_c",
+   "fieldtype": "Data",
+   "label": "PAN"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "product_group_c",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Product Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "address_c_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address_html",
+   "fieldtype": "HTML",
+   "label": "Consignee Address",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-12-14 17:10:12.985964",
+ "modified": "2022-01-11 10:39:59.817531",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Consignee",

@@ -2,10 +2,10 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Trip Sheet', {
-	refresh: function(frm) {
+	validate: function(frm) {
 
 		frm.add_custom_button("Customer Advance",function(){
-			debugger;
+//			debugger;
 
 			// frappe.call({
 			// 	"method":"fleet.fleet.doctype.trip_sheet.trip_sheet.insert_Payment",
@@ -106,7 +106,7 @@ frappe.ui.form.on('Trip Sheet', {
 					frm.set_value("loading_point_c", "")
 					frappe.throw("Loading Point and Destination Cannot be same.")
 				}
-				get_price(frm);
+//				get_price(frm);
 			}
 		}
 	},
@@ -117,17 +117,34 @@ frappe.ui.form.on('Trip Sheet', {
 					frm.set_value("destination_c", "")
 					frappe.throw("Loading Point and Destination Cannot be same.")
 				}
-				get_price(frm);
+				//console.log("in")
+//				get_price(frm);
 			}
 		}
 	},
-	is_return_trip: function(frm){
-		if(frm.doc.destination_c){
-			if(frm.doc.loading_point_c){
-				get_price(frm);
-			}
-		}
-	}
+//	destination_c: function(frm){
+//		if(frm.doc.destination_c && frm.doc.loading_point_c){
+//			get_price(frm);
+//		}
+//	},
+//	two_way: function(frm){
+//		if(frm.doc.two_way && frm.doc.one_way){
+//			frappe.throw("Select either one way or two way") 
+//		}
+//		else{
+//			get_price(frm)
+//		}
+//	},
+//	one_way: function(frm){
+//		if(frm.doc.two_way && frm.doc.one_way){
+//			frappe.throw("Select either one way or two way")
+//		}
+//		else{
+//			//frm.set_value("two_way",0)
+//			//frm.set_value("one_way",1)
+//			get_price(frm)
+//		}
+//	}
 });
 
 
@@ -135,22 +152,28 @@ function get_price(frm){
 	frappe.call({
 		"method":"fleet.fleet.doctype.trip_sheet.trip_sheet.get_price",
 		"args":{
-			"from_dest":frm.doc.loading_point_c,
-			"to_dest": frm.doc.destination_c
+			args:frm.doc
 		},
-		"callback":function(res){
-			console.log(res)
-			if(res.message != 0){
-				if(frm.doc.is_return_trip == 0){
-					frm.set_value("price",res.message[0].price)
-				}
-				else{
-					frm.set_value("price",res.message[0].return_trip_price)
-				}
+		callback:function(r){
+			console.log(r)
+			if(r.message){
+				frm.set_value("price",r.message);
 			}
 			else{
-				frm.set_value("price",res.message)
+				frm.set_value("price",0);
+				//frappe.throw("No Price in LH Master for this route")
 			}
+	//		if(res.message != 0){
+	//			if(frm.doc.is_return_trip == 0){
+	//				frm.set_value("price",res.message[0].price)
+	//			}
+	//			else{
+	//				frm.set_value("price",res.message[0].return_trip_price)
+	//			}
+	//		}
+	//		else{
+	//			frm.set_value("price",res.message)
+	//		}
 			refresh_field("price")
 		}
 	})

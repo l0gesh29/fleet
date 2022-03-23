@@ -2,7 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "field:full_name_c",
  "creation": "2021-12-09 17:29:48.037861",
  "doctype": "DocType",
  "document_type": "Setup",
@@ -14,15 +14,17 @@
   "full_name_c",
   "status_c",
   "transporter_c",
+  "pan_no_c",
   "column_break_2",
   "employee_c",
   "cell_number_c",
   "address_c",
+  "pan_holder_name_c",
   "license_details",
   "license_number_c",
-  "column_break_8",
   "issuing_date_c",
-  "column_break_10",
+  "column_break_8",
+  "issuing_office_c",
   "expiry_date_c",
   "driving_license_categories",
   "driving_license_category_c"
@@ -38,7 +40,7 @@
    "fieldname": "full_name",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "Full Name"
+   "label": "Full Name not needed"
   },
   {
    "fieldname": "status_c",
@@ -98,10 +100,6 @@
    "label": "Issuing Date"
   },
   {
-   "fieldname": "column_break_10",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "expiry_date_c",
    "fieldtype": "Date",
    "label": "Expiry Date"
@@ -122,12 +120,28 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Full Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "issuing_office_c",
+   "fieldtype": "Data",
+   "label": "Issuing Office"
+  },
+  {
+   "fieldname": "pan_no_c",
+   "fieldtype": "Data",
+   "label": "PAN No"
+  },
+  {
+   "fieldname": "pan_holder_name_c",
+   "fieldtype": "Data",
+   "label": "PAN Holder Name"
   }
  ],
  "icon": "fa fa-user",
  "links": [],
- "modified": "2021-12-14 17:10:13.490144",
+ "modified": "2022-02-08 12:19:33.410528",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Truck Driver",

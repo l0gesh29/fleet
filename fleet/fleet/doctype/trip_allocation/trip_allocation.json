@@ -1,0 +1,360 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "TA.####",
+ "creation": "2022-01-18 17:15:29.188597",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "vehicle_type",
+  "reference_c",
+  "customer",
+  "supplier",
+  "market_vehicle_no_c",
+  "vehicle_reg_no",
+  "vehicle_type_c",
+  "lorry_hire",
+  "market_lorry_hire_c",
+  "advance_amount",
+  "market_advance_amount_c",
+  "outstanding_amount",
+  "column_break_3",
+  "company",
+  "driver",
+  "market_driver_c",
+  "driver_mobile",
+  "dl_no_c",
+  "dl_no_m",
+  "market_driver_mobile_c",
+  "pan_no_c",
+  "pan_no_m",
+  "pan_h_name_c",
+  "pan_h_name_m",
+  "branch_c",
+  "mode_of_payment_c",
+  "payment_reference_c",
+  "ref_date_c",
+  "saved",
+  "amended_from",
+  "section_break_9",
+  "consignor_c",
+  "loading_point_c",
+  "one_way",
+  "two_way",
+  "column_break_12",
+  "consignee_c",
+  "destination_c",
+  "date_c",
+  "section_break_15",
+  "consignor_address_display",
+  "linked_trip_order_c"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Trip Allocation",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "lorry_hire",
+   "fieldtype": "Currency",
+   "label": "Lorry Hire"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "outstanding_amount",
+   "fieldtype": "Currency",
+   "label": "Outstanding Amount",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "saved",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Saved",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consignor_c",
+   "fieldtype": "Link",
+   "label": "Consignor",
+   "options": "Consignor",
+   "read_only": 1
+  },
+  {
+   "fieldname": "loading_point_c",
+   "fieldtype": "Link",
+   "label": "Loading Point",
+   "options": "Destination",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "one_way",
+   "fieldtype": "Check",
+   "label": "One Way",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "two_way",
+   "fieldtype": "Check",
+   "label": "Two Way",
+   "read_only": 1
+  },
+  {
+   "fieldname": "destination_c",
+   "fieldtype": "Link",
+   "label": "Destination",
+   "options": "Destination",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date_c",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "linked_trip_order_c",
+   "fieldtype": "Link",
+   "label": "Trip Order",
+   "options": "Trip Sheet",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fetch_from": "driver.cell_number_c",
+   "fieldname": "driver_mobile",
+   "fieldtype": "Data",
+   "label": "Driver Mobile"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "vehicle_reg_no",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Vehicle Reg No",
+   "options": "Truck"
+  },
+  {
+   "fieldname": "consignee_c",
+   "fieldtype": "Link",
+   "label": "Consignee",
+   "options": "Consignee",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Driver Name",
+   "options": "Truck Driver"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "SOUTHERN CARGO LOGISTICS PRIVATE LTD",
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer/Agent",
+   "options": "Customer"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "advance_amount",
+   "fieldtype": "Currency",
+   "label": "Advance Amount"
+  },
+  {
+   "fieldname": "vehicle_type_c",
+   "fieldtype": "Link",
+   "label": "Vehicle Type",
+   "options": "Truck Type",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier/Broker",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "vehicle_type",
+   "fieldtype": "Select",
+   "label": "Allocation Type",
+   "options": "\nOwn Vehicle\nMarket Vehicle"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_vehicle_no_c",
+   "fieldtype": "Data",
+   "label": "Market Vehicle No "
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_lorry_hire_c",
+   "fieldtype": "Currency",
+   "label": "Market Lorry Hire "
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_advance_amount_c",
+   "fieldtype": "Currency",
+   "label": "Market Advance Amount"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_driver_c",
+   "fieldtype": "Data",
+   "label": "Market Driver"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_driver_mobile_c",
+   "fieldtype": "Data",
+   "label": "Market Driver Mobile"
+  },
+  {
+   "default": "Southern Cargo Logistics Private Limited",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "dl_no_c",
+   "fieldtype": "Data",
+   "label": "DL NO"
+  },
+  {
+   "fieldname": "pan_no_c",
+   "fieldtype": "Data",
+   "label": "PAN NO"
+  },
+  {
+   "fieldname": "pan_h_name_c",
+   "fieldtype": "Data",
+   "label": "PAN Holder Name"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "dl_no_m",
+   "fieldtype": "Data",
+   "label": "DL NO"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "pan_no_m",
+   "fieldtype": "Data",
+   "label": "PAN NO"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "pan_h_name_m",
+   "fieldtype": "Data",
+   "label": "PAN Holder Name"
+  },
+  {
+   "fieldname": "reference_c",
+   "fieldtype": "Data",
+   "label": "Reference No"
+  },
+  {
+   "fieldname": "branch_c",
+   "fieldtype": "Link",
+   "label": "Branch ",
+   "options": "Branches"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "mode_of_payment_c",
+   "fieldtype": "Link",
+   "label": "Mode of Payment",
+   "options": "Mode of Payment",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "payment_reference_c",
+   "fieldtype": "Link",
+   "label": "Payment Reference",
+   "options": "Payment Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consignor_address_display",
+   "fieldtype": "Small Text",
+   "label": "Consignor Address Display",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "ref_date_c",
+   "fieldtype": "Date",
+   "label": "Reference Date",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Final Trip Sheet",
+   "link_doctype": "Final Trip Sheet",
+   "link_fieldname": "linked_trip_allocation_c"
+  },
+  {
+   "group": "Payment Entry",
+   "link_doctype": "Payment Entry",
+   "link_fieldname": "linked_trip_allocation"
+  }
+ ],
+ "modified": "2022-03-17 10:01:24.865251",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Trip Allocation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
