@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-02-12 14:32:33.428266",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "deduction",
+  "product",
+  "quantity",
+  "rate",
+  "amount",
+  "approval_amount"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "deduction",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Deduction",
+   "options": "\nReturns\nShortage\nDamages\nRecovery\nClaims\nCash M."
+  },
+  {
+   "columns": 2,
+   "fieldname": "product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product",
+   "options": "Item"
+  },
+  {
+   "columns": 1,
+   "fieldname": "quantity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "columns": 1,
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Rate"
+  },
+  {
+   "columns": 2,
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  },
+  {
+   "columns": 2,
+   "fieldname": "approval_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Approval Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-03-24 10:25:18.368953",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Deduction",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
