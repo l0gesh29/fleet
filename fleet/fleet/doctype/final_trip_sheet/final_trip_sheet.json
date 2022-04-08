@@ -147,15 +147,15 @@
   {
    "fieldname": "consignee_c",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Consignee",
    "options": "Consignee"
   },
   {
    "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
    "fieldname": "driver",
-   "fieldtype": "Link",
-   "label": "Driver Name",
-   "options": "Truck Driver"
+   "fieldtype": "Data",
+   "label": "Driver Name"
   },
   {
    "fieldname": "section_break_15",
@@ -265,6 +265,7 @@
    "allow_on_submit": 1,
    "fieldname": "reference_c",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Reference"
   },
   {
@@ -355,6 +356,7 @@
    "fetch_from": "consignee.mobile_c",
    "fieldname": "consignee_mobile_no_c",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Consignee Mobile No "
   },
   {
@@ -449,7 +451,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-02-28 11:26:02.946930",
+ "modified": "2022-03-25 11:45:46.643159",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",

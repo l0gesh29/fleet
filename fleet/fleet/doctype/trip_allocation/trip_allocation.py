@@ -7,7 +7,17 @@ from frappe.contacts.doctype.address.address import get_address_display
 
 class TripAllocation(Document):
 	def before_save(self):
-		if self.saved and self.lorry_hire==0:
+		if self.vehicle_type=="Own Vehicle" and self.saved:
+			if len(self.driver_mobile) > 10:
+				frappe.throw("Mobile Number Exceed 10 digit")
+			if len(self.driver_mobile) < 10:
+				frappe.throw("Mobile Number Should be 10 digit")
+		if self.vehicle_type=="Market Vehicle" and self.saved:
+			if len(self.market_driver_c) > 10:
+				frappe.throw("Mobile Number Exceed 10 digit")
+			if len(self.market_driver_c) < 10:
+				frappe.throw("Mobile Number Should be 10 digit")
+		if self.saved and self.vehicle_type=="Own Vehicle":
 			l_lh=frappe.db.get_value("LH Master",{"consignor_c":self.consignor_c,'from': ["<=", self.date_c] ,'to': [">=", self.date_c ]},"name")
 			res=0
 			if l_lh:
@@ -20,7 +30,7 @@ class TripAllocation(Document):
 							res=row.two_way_c
 				if res:
 					self.lorry_hire= res
-
+					self.total_lorry_hire = res+self.hamali
 				else:
 					frappe.throw("No price for "+self.loading_point_c+" to "+self.destination_c+" in  LH Master")
 		else:
@@ -43,9 +53,9 @@ class TripAllocation(Document):
 			doc.driver_mobile=self.driver_mobile
 			doc.pan_no = self.pan_no_m
 			doc.driver=self.driver
-			doc.lorry_hire=self.lorry_hire
+			doc.lorry_hire=self.total_lorry_hire
 			doc.advance_amount=self.advance_amount
-			doc.outstanding_amount = self.lorry_hire
+			doc.outstanding_amount = self.total_lorry_hire
 			doc.vehicle_type_c=self.vehicle_type_c
 			doc.one_way=self.one_way
 			doc.two_way=self.two_way
@@ -74,9 +84,9 @@ class TripAllocation(Document):
 			#               doc.supplier=self.supplier              
 			doc.market_driver_mobile_c=self.market_driver_mobile_c
 			doc.market_driver_c=self.market_driver_c
-			doc.market_lorry_hire_c=self.market_lorry_hire_c
+			doc.market_lorry_hire_c=self.market_total_lorry_hire_c
 			doc.market_advance_amount_c = self.market_advance_amount_c
-			doc.outstanding_amount = self.market_lorry_hire_c
+			doc.outstanding_amount = self.market_total_lorry_hire_c
 			doc.vehicle_type_c=self.vehicle_type_c
 			doc.pan_no = self.pan_no_m
 			doc.one_way=self.one_way
@@ -110,7 +120,7 @@ class TripAllocation(Document):
 			pe.paid_to="Cash - SCC"
 			pe.paid_from_account_currency="INR"
 			pe.paid_to_account_currency="INR"
-			pe.append("references",{"reference_doctype":"Trip Allocation","reference_name":self.name,"total_amount":self.lorry_hire,"outstanding_amount":self.lorry_hire,"allocated_amount":self.advance_amount})
+			pe.append("references",{"reference_doctype":"Trip Allocation","reference_name":self.name,"total_amount":self.total_lorry_hire,"outstanding_amount":self.total_lorry_hire,"allocated_amount":self.advance_amount})
 			pe.linked_trip_allocation = self.name
 			pe.save()
 	#	pe.submit()
@@ -137,7 +147,7 @@ class TripAllocation(Document):
 			pe.paid_to="Creditors - SCC"
 			pe.paid_from_account_currency="INR"
 			pe.paid_to_account_currency="INR"
-			pe.append("references",{"reference_doctype":"Trip Allocation","reference_name":self.name,"total_amount":self.market_lorry_hire_c,"outstanding_amount":self.market_lorry_hire_c,"allocated_amount":self.market_advance_amount_c})
+			pe.append("references",{"reference_doctype":"Trip Allocation","reference_name":self.name,"total_amount":self.market_advance_amount_c,"outstanding_amount":self.market_advance_amount_c,"allocated_amount":self.market_advance_amount_c})
 			pe.linked_trip_allocation = self.name
 			pe.save()
 			doc_name=pe.name
@@ -209,48 +219,48 @@ def make_payment_entry(frm):
 
 @frappe.whitelist()
 def o_amount(self,method):
-
-	if self.references[0].reference_doctype == "Trip Allocation":
-		doc=frappe.get_doc("Trip Allocation",self.references[0].reference_name)
-		doc.mode_of_payment_c = self.mode_of_payment
+	if self.references:
+		if self.references[0].reference_doctype == "Trip Allocation":
+			doc=frappe.get_doc("Trip Allocation",self.references[0].reference_name)
+			doc.mode_of_payment_c = self.mode_of_payment
 	#	doc.ref_date_c = self.posting_date
-		doc.payment_reference_c = self.name
-		if doc.outstanding_amount:
-			doc.outstanding_amount = doc.outstanding_amount - self.paid_amount
-		else:
-			doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
-		doc.save()
-		#doc.submit()
+			doc.payment_reference_c = self.name
+			if doc.outstanding_amount:
+				doc.outstanding_amount = doc.outstanding_amount - self.paid_amount
+			else:
+				doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
+			doc.save()
+			#doc.submit()
 
-		fts_name=frappe.db.get_value("Final Trip Sheet",{"linked_trip_allocation_c":self.references[0].reference_name},"name")
-		doc=frappe.get_doc("Final Trip Sheet",fts_name)
-		if doc.outstanding_amount:
-			doc.outstanding_amount = doc.outstanding_amount - self.paid_amount
-		else:
-			doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
-		doc.save()
+			fts_name=frappe.db.get_value("Final Trip Sheet",{"linked_trip_allocation_c":self.references[0].reference_name},"name")
+			doc=frappe.get_doc("Final Trip Sheet",fts_name)
+			if doc.outstanding_amount:
+				doc.outstanding_amount = doc.outstanding_amount - self.paid_amount
+			else:
+				doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
+			doc.save()
 	#	doc.submit()
 
 
-	if self.references[0].reference_doctype == "Acknowledgement":
-		doc=frappe.get_doc("Acknowledgement",self.references[0].reference_name)
+		if self.references[0].reference_doctype == "Acknowledgement":
+			doc=frappe.get_doc("Acknowledgement",self.references[0].reference_name)
 #		doc.mode_of_payment_c = self.mode_of_payment
-		doc.reference_c = self.name
-		if doc.outstanding_amount:
+			doc.reference_c = self.name
+			if doc.outstanding_amount:
 
-			doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
+				doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
 	#	else:
 	#		doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
-		doc.save()
+			doc.save()
 		#doc.submit()
 
-		ta_doc=frappe.db.get_value("Acknowledgement",{"name":self.references[0].reference_name},"final_trip_sheet")
-		doc=frappe.get_doc("Final Trip Sheet",ta_doc)
-		if doc.outstanding_amount:
-			doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
+			ta_doc=frappe.db.get_value("Acknowledgement",{"name":self.references[0].reference_name},"final_trip_sheet")
+			doc=frappe.get_doc("Final Trip Sheet",ta_doc)
+			if doc.outstanding_amount:
+				doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
 	#	else:
 	#		doc.outstanding_amount = self.references[0].total_amount - self.paid_amount
-		doc.save()
+			doc.save()
 #		doc.submit()
 
 

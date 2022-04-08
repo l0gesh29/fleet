@@ -14,8 +14,14 @@
   "market_vehicle_no_c",
   "vehicle_reg_no",
   "vehicle_type_c",
+  "toll",
+  "hamali",
   "lorry_hire",
+  "total_lorry_hire",
+  "market_toll",
+  "market_hamali",
   "market_lorry_hire_c",
+  "market_total_lorry_hire",
   "advance_amount",
   "market_advance_amount_c",
   "outstanding_amount",
@@ -143,7 +149,8 @@
    "fetch_from": "driver.cell_number_c",
    "fieldname": "driver_mobile",
    "fieldtype": "Data",
-   "label": "Driver Mobile"
+   "label": "Driver Mobile",
+   "mandatory_depends_on": "eval:doc.vehicle_type == 'Own Vehicle'"
   },
   {
    "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
@@ -163,10 +170,10 @@
   {
    "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
    "fieldname": "driver",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Driver Name",
-   "options": "Truck Driver"
+   "mandatory_depends_on": "eval:doc.vehicle_type == 'Own Vehicle'"
   },
   {
    "fieldname": "section_break_9",
@@ -221,7 +228,7 @@
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
    "fieldname": "market_lorry_hire_c",
    "fieldtype": "Currency",
-   "label": "Market Lorry Hire "
+   "label": "Market Lorry Hire"
   },
   {
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
@@ -233,13 +240,15 @@
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
    "fieldname": "market_driver_c",
    "fieldtype": "Data",
-   "label": "Market Driver"
+   "label": "Market Driver",
+   "mandatory_depends_on": "eval:doc.vehicle_type == 'Market Vehicle'"
   },
   {
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
    "fieldname": "market_driver_mobile_c",
    "fieldtype": "Data",
-   "label": "Market Driver Mobile"
+   "label": "Market Driver Mobile",
+   "mandatory_depends_on": "eval:doc.vehicle_type == 'Market Vehicle'"
   },
   {
    "default": "Southern Cargo Logistics Private Limited",
@@ -251,12 +260,14 @@
   {
    "fieldname": "dl_no_c",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "DL NO"
   },
   {
    "fieldname": "pan_no_c",
    "fieldtype": "Data",
-   "label": "PAN NO"
+   "label": "PAN NO",
+   "mandatory_depends_on": "eval:doc.vehicle_type == 'Own Vehicle'"
   },
   {
    "fieldname": "pan_h_name_c",
@@ -267,13 +278,15 @@
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
    "fieldname": "dl_no_m",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "DL NO"
   },
   {
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
    "fieldname": "pan_no_m",
    "fieldtype": "Data",
-   "label": "PAN NO"
+   "label": "PAN NO",
+   "mandatory_depends_on": "eval:doc.vehicle_type == 'Market Vehicle'"
   },
   {
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
@@ -320,6 +333,42 @@
    "fieldtype": "Date",
    "label": "Reference Date",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "toll",
+   "fieldtype": "Currency",
+   "label": "Toll"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "hamali",
+   "fieldtype": "Currency",
+   "label": "Hamali"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_toll",
+   "fieldtype": "Currency",
+   "label": "Market Toll"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_hamali",
+   "fieldtype": "Currency",
+   "label": "Market Hamali"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
+   "fieldname": "total_lorry_hire",
+   "fieldtype": "Currency",
+   "label": "Total Lorry Hire"
+  },
+  {
+   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
+   "fieldname": "market_total_lorry_hire",
+   "fieldtype": "Currency",
+   "label": "Market Total Lorry Hire"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -336,7 +385,7 @@
    "link_fieldname": "linked_trip_allocation"
   }
  ],
- "modified": "2022-03-17 10:01:24.865251",
+ "modified": "2022-03-25 10:51:04.075439",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Trip Allocation",
