@@ -7,6 +7,26 @@ import base64
 from frappe.utils import now
 from frappe.contacts.doctype.address.address import get_address_display
 
+
+@frappe.whitelist(allow_guest = True)
+def update_trip_order(**args):
+	doc = frappe.get_doc("Trip Sheet",args["name"])
+	doc.consignor_c = args["consignor_c"]
+	doc.loading_point_c = args["loading_point_c"]
+	doc.branch = args["branch"]
+	doc.destination_c = args["destination_c"]
+	if args['one_way'] == 1:
+		doc.one_way = 1
+	elif args["two_way"] == 1:
+		doc.two_way = 1
+	doc.vehicle_type_c = args["vehicle_type_c"]
+	doc.product_group_c = args["product_group_c"]
+	doc.save()
+	#doc.submit()
+	#ta = frappe.db.get_value("Trip Allocation",{"linked_trip_order_c":doc.name},"name")
+	#frappe.clear_messages()
+	return {"success":1}
+
 @frappe.whitelist(allow_guest = True)
 def create_trip_order(**args):
 	doc = frappe.new_doc("Trip Sheet")
@@ -118,6 +138,7 @@ def trip_allocation(**args):
 	fts = frappe.db.get_list("Final Trip Sheet",{"linked_trip_allocation_c":doc.name},"name")
 	frappe.clear_messages()
 	return "Vehicle Allotted Successfully"
+
 
 @frappe.whitelist(allow_guest = True)
 def final_trip_sheet(**args):

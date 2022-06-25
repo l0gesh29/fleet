@@ -465,6 +465,7 @@
    "label": "Duplicate Entry"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "consignor_c.email_c",
    "fieldname": "consignor_email",
    "fieldtype": "Data",
@@ -473,6 +474,7 @@
    "options": "Email"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "consignee_c.email_c",
    "fieldname": "consignee_email",
    "fieldtype": "Data",
@@ -498,7 +500,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-06-20 16:27:19.730121",
+ "modified": "2022-06-25 11:41:26.742881",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",

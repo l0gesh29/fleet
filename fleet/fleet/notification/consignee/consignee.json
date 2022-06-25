@@ -11,7 +11,7 @@
  "idx": 0,
  "is_standard": 1,
  "message": "Add your message here",
- "modified": "2022-06-20 17:27:24.656661",
+ "modified": "2022-06-25 14:09:42.053992",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Consignee",
@@ -24,6 +24,8 @@
  ],
  "send_system_notification": 0,
  "send_to_all_assignees": 0,
+ "sender": "SCC",
+ "sender_email": "southerncargocarriers9@gmail.com",
  "subject": "Consignee Final Trip Sheet",
  "value_changed": "email"
 }
