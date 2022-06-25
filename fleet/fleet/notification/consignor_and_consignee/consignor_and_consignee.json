@@ -1,0 +1,31 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2022-06-20 16:25:53.619275",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Final Trip Sheet",
+ "enabled": 1,
+ "event": "Value Change",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Add your message here",
+ "modified": "2022-06-20 16:26:18.426450",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Consignor and Consignee",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "consignor_email"
+  },
+  {
+   "receiver_by_document_field": "consignee_email"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "subject": "FTS Copy",
+ "value_changed": "email"
+}

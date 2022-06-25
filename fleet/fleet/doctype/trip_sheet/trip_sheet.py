@@ -30,7 +30,6 @@ class TripSheet(Document):
 	def before_submit(self):
 		#args=json.loads(args)
 		l_lh=frappe.db.get_value("LH Master",{"consignor_c":self.consignor_c,'from': ["<=", self.date_c ],'to': [">=", self.date_c ]},"name")
-		frappe.errprint(l_lh)
 		res=0
 		if l_lh:
 			doc=frappe.get_doc("LH Master",l_lh)

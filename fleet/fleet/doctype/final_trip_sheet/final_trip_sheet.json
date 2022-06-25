@@ -8,15 +8,19 @@
  "engine": "InnoDB",
  "field_order": [
   "consignor_c",
+  "consignor_email",
+  "email",
   "consignor_mobile_no_c",
   "loading_point_c",
   "vehicle_type_c",
   "date_c",
   "remarks",
+  "duplicate_entry",
   "column_break_7",
   "branch_c",
   "destination_c",
   "consignee_c",
+  "consignee_email",
   "consignee_mobile_no_c",
   "reference_c",
   "product_group",
@@ -67,7 +71,8 @@
   "consignor_address_display",
   "one_way",
   "two_way",
-  "company"
+  "company",
+  "duplicate"
  ],
  "fields": [
   {
@@ -140,15 +145,15 @@
   {
    "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
    "fieldname": "vehicle_reg_no",
-   "fieldtype": "Link",
-   "label": "Vehicle No",
-   "options": "Truck"
+   "fieldtype": "Data",
+   "label": "Vehicle No"
   },
   {
    "fieldname": "consignee_c",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Consignee",
+   "mandatory_depends_on": "eval:doc.docstatus == 0",
    "options": "Consignee"
   },
   {
@@ -349,7 +354,8 @@
    "fetch_from": "consignor.mobile_c",
    "fieldname": "consignor_mobile_no_c",
    "fieldtype": "Data",
-   "label": "Consignor Mobile No "
+   "label": "Consignor Mobile No ",
+   "mandatory_depends_on": "eval:doc.docstatus == 0"
   },
   {
    "allow_on_submit": 1,
@@ -357,7 +363,8 @@
    "fieldname": "consignee_mobile_no_c",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Consignee Mobile No "
+   "label": "Consignee Mobile No ",
+   "mandatory_depends_on": "eval:doc.docstatus == 0"
   },
   {
    "allow_on_submit": 1,
@@ -433,13 +440,53 @@
   {
    "fieldname": "pan_no",
    "fieldtype": "Data",
-   "label": "PAN No"
+   "label": "PAN No",
+   "mandatory_depends_on": "eval:doc.docstatus == 0"
   },
   {
    "allow_on_submit": 1,
    "fieldname": "grn_c",
    "fieldtype": "Small Text",
    "label": "GRN"
+  },
+  {
+   "default": "0",
+   "fieldname": "duplicate",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Duplicate",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "duplicate_entry",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Duplicate Entry"
+  },
+  {
+   "fetch_from": "consignor_c.email_c",
+   "fieldname": "consignor_email",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Consignor Email",
+   "options": "Email"
+  },
+  {
+   "fetch_from": "consignee_c.email_c",
+   "fieldname": "consignee_email",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Consignee Email",
+   "options": "Email"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "email",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Email"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -451,7 +498,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-03-25 11:45:46.643159",
+ "modified": "2022-06-20 16:27:19.730121",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",

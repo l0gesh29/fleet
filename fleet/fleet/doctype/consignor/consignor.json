@@ -72,7 +72,8 @@
   {
    "fieldname": "email_c",
    "fieldtype": "Data",
-   "label": "Email "
+   "label": "Email ",
+   "options": "Email"
   },
   {
    "fieldname": "column_break_9",
@@ -86,7 +87,8 @@
   {
    "fieldname": "alt_email_c",
    "fieldtype": "Data",
-   "label": "Alt Email"
+   "label": "Alt Email",
+   "options": "Email"
   },
   {
    "fieldname": "section_break_12",
@@ -154,7 +156,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-03-23 11:23:09.454808",
+ "modified": "2022-06-20 16:16:29.373159",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Consignor",

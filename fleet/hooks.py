@@ -92,6 +92,9 @@ app_license = "MIT"
 doc_events = {
 	"Payment Entry": {
  		"on_submit": "fleet.fleet.doctype.trip_allocation.trip_allocation.o_amount"
+	},
+	"Final Trip Sheet": {
+		"autoname": "fleet.api.autoname"
 	}
 }
 

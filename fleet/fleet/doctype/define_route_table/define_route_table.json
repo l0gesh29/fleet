@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-05-26 12:40:08.807024",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "loading_point_c",
+  "destination_c",
+  "fts"
+ ],
+ "fields": [
+  {
+   "allow_on_submit": 1,
+   "fieldname": "loading_point_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Loading Point",
+   "options": "Destination"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "destination_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Destination",
+   "options": "Destination"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "fts",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "FTS",
+   "options": "Final Trip Sheet",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-06-10 15:07:25.476597",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Define Route Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

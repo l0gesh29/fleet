@@ -170,9 +170,8 @@
   {
    "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
    "fieldname": "vehicle_reg_no",
-   "fieldtype": "Link",
-   "label": "Vehicle No",
-   "options": "Truck"
+   "fieldtype": "Data",
+   "label": "Vehicle No"
   },
   {
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
@@ -448,7 +447,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-03-25 11:24:00.253289",
+ "modified": "2022-06-14 12:50:34.004114",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Acknowledgement",

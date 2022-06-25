@@ -45,7 +45,8 @@
   {
    "fieldname": "email_c",
    "fieldtype": "Data",
-   "label": "Email "
+   "label": "Email ",
+   "options": "Email"
   },
   {
    "fieldname": "contact_person_c",
@@ -82,7 +83,8 @@
   {
    "fieldname": "alt_email_c",
    "fieldtype": "Data",
-   "label": "Alt Email"
+   "label": "Alt Email",
+   "options": "Email"
   },
   {
    "fieldname": "phone_no_c",
@@ -144,7 +146,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-01-11 10:39:59.817531",
+ "modified": "2022-06-20 16:15:53.327950",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Consignee",
