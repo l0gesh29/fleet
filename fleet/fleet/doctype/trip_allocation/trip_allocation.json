@@ -22,8 +22,6 @@
   "market_hamali",
   "market_lorry_hire_c",
   "market_total_lorry_hire",
-  "advance_amount",
-  "market_advance_amount_c",
   "outstanding_amount",
   "column_break_3",
   "company",
@@ -200,12 +198,6 @@
    "options": "Customer"
   },
   {
-   "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
-   "fieldname": "advance_amount",
-   "fieldtype": "Currency",
-   "label": "Advance Amount"
-  },
-  {
    "allow_on_submit": 1,
    "fieldname": "vehicle_type_c",
    "fieldtype": "Link",
@@ -241,12 +233,6 @@
    "fieldname": "market_lorry_hire_c",
    "fieldtype": "Currency",
    "label": "Market Lorry Hire"
-  },
-  {
-   "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
-   "fieldname": "market_advance_amount_c",
-   "fieldtype": "Currency",
-   "label": "Market Advance Amount"
   },
   {
    "allow_on_submit": 1,
@@ -410,14 +396,9 @@
    "group": "Final Trip Sheet",
    "link_doctype": "Final Trip Sheet",
    "link_fieldname": "linked_trip_allocation_c"
-  },
-  {
-   "group": "Payment Entry",
-   "link_doctype": "Payment Entry",
-   "link_fieldname": "linked_trip_allocation"
   }
  ],
- "modified": "2022-06-25 17:02:45.237006",
+ "modified": "2022-07-28 15:49:57.104300",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Trip Allocation",

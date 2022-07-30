@@ -4,6 +4,7 @@
 import frappe,json
 from frappe.model.document import Document
 from frappe.contacts.doctype.address.address import get_address_display
+from frappe import _
 
 class FinalTripSheet(Document):
 #	def before_save(self):
@@ -25,7 +26,10 @@ class FinalTripSheet(Document):
 
 @frappe.whitelist()
 def make_acknowledgement(frm):
-	val=json.loads(frm)
+	if isinstance(frm, str):
+		val = json.loads(frm)
+	else:
+		val = frm.as_dict()
 	if val["vehicle_type"] == "Own Vehicle":
 			doc = frappe.new_doc("Acknowledgement")
 			doc.consignor_c = val["consignor_c"]
@@ -103,6 +107,47 @@ def make_acknowledgements(frm):
                         doc.supplier = val.supplier
                         doc.save()
 
+@frappe.whitelist()
+def make_payment_entry(frm):
+	val=frappe._dict(json.loads(frm))
+	pe = frappe.new_doc("Payment Entry")
+	if val.vehicle_type == "Own Vehicle":
+		pe=frappe.new_doc("Payment Entry")
+		pe.payment_type="Receive"
+		pe.mode_of_payment="NEFT/RTGS/IMPS"
+		pe.vehicle_no = val.vehicle_reg_no
+		pe.party_type="Customer"
+		pe.party=val.customer
+		pe.party_name=val.customer
+		pe.target_exchange_rate=1
+#		pe.base_received_amount=self.advance_amount
+		pe.paid_from= frappe.db.get_value("Company",{},"default_receivable_account")
+		pe.paid_to= frappe.db.get_value("Company",{},"default_cash_account")
+		pe.paid_from_account_currency="INR"
+		pe.paid_to_account_currency="INR"
+		pe.append("references",{"reference_doctype":"Final Trip Sheet","reference_name":val.name,"total_amount":val.total_lorry_hire,"outstanding_amount":val.total_lorry_hire,"allocated_amount":val.advance_amount})
+		#pe.save()
+		return pe
+
+
+	if val.vehicle_type == "Market Vehicle":
+		pe=frappe.new_doc("Payment Entry")
+		pe.payment_type="Pay"
+		pe.mode_of_payment="NEFT/RTGS/IMPS"
+		pe.party_type="Supplier"
+		pe.vehicle_no = val.market_vehicle_no_c
+		pe.party=val.supplier
+		pe.party_name=val.supplier
+#		pe.paid_amount=self.market_advance_amount_c
+#		pe.received_amount=self.market_advance_amount_c
+		pe.target_exchange_rate=1
+#		pe.base_received_amount=self.market_advance_amount_c
+		pe.paid_from=frappe.db.get_value("Company",{},"default_cash_account")
+		pe.paid_to=frappe.db.get_value("Company",{},"default_payable_account")
+		pe.paid_from_account_currency="INR"
+		pe.paid_to_account_currency="INR"
+		pe.append("references",{"reference_doctype":"Final Trip Sheet","reference_name":val.name,"total_amount":val.market_lorry_hire_c,"outstanding_amount":val.market_lorry_hire_c,"allocated_amount":val.market_lorry_hire_c})
+		return pe
 
 @frappe.whitelist()
 def get_address(val):

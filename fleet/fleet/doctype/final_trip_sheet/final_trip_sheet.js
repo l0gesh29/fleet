@@ -8,6 +8,9 @@ frappe.ui.form.on('Final Trip Sheet', {
                        frm.add_custom_button(__('Create Acknowledgement'),()=>{
                                 frm.events.create_acknowledgement(frm);
                        });
+                       frm.add_custom_button(__('Create Payment Entry'),()=>{
+                                frm.events.create_payment_entry(frm);
+                       });
                 }
 
         },
@@ -59,6 +62,19 @@ frappe.ui.form.on('Final Trip Sheet', {
                 },
                 });
         },
+	create_payment_entry:function(frm){
+                return frappe.call({
+                        method:"fleet.fleet.doctype.final_trip_sheet.final_trip_sheet.make_payment_entry",
+                        args: {
+                                frm:frm.doc
+                        },
+                callback: function (r)
+                {
+                      var doc = frappe.model.sync(r.message);
+                      frappe.set_route("Form", doc[0].doctype, doc[0].name);
+                },
+                });
+        }
 
 });
 
