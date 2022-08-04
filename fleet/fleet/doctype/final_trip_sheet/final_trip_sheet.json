@@ -1,13 +1,12 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "FTS.####",
  "creation": "2022-01-20 09:14:38.703475",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "naming_series",
   "consignor_c",
   "consignor_email",
   "email",
@@ -494,14 +493,6 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "Email"
-  },
-  {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Series",
-   "options": "FTS.####",
-   "read_only": 1,
-   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -513,7 +504,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-08-04 12:07:41.530707",
+ "modified": "2022-08-01 11:21:22.431486",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",

@@ -328,11 +328,11 @@ def trip_order(username):
 def get_trip_allocation(username,type):
 	if type == "Own Vehicle":
 		ta = frappe.db.sql("""select name,vehicle_type,reference_c,customer,vehicle_reg_no,vehicle_type_c,company,driver,driver_mobile,pan_no_c,branch_c,consignor_c,destination_c,loading_point_c,
-		date_c,one_way,two_way,toll,hamali,lorry_hire,total_lorry_hire,pan_h_name_c,
+		date_c,one_way,two_way,toll,hamali,lorry_hire,total_lorry_hire,pan_h_name_c,docstatus,
 		linked_trip_order_c from `tabTrip Allocation` where owner='{0}' and docstatus!=2 and vehicle_type='{1}' Order By name DESC""".format(username,type),as_dict=True)
 		return ta
 	if type == "Market Vehicle":
-		ta = frappe.db.sql("""select name,vehicle_type,reference_c,supplier,market_vehicle_no_c as vehicle_reg_no,vehicle_type_c,company,market_driver_c as driver,pan_h_name_m,
+		ta = frappe.db.sql("""select name,vehicle_type,reference_c,supplier,market_vehicle_no_c as vehicle_reg_no,vehicle_type_c,company,market_driver_c as driver,pan_h_name_m,docstatus,
 		market_driver_mobile_c as driver_mobile,pan_no_m,branch_c,consignor_c,destination_c,loading_point_c,date_c,market_toll,market_hamali,market_lorry_hire_c,market_total_lorry_hire,
 		one_way,two_way,linked_trip_order_c from `tabTrip Allocation` where owner='{0}' and docstatus!=2 and vehicle_type='{1}' Order By name DESC""".format(username,type),as_dict=True)
 		return ta
@@ -433,7 +433,7 @@ def email(fts):
 
 @frappe.whitelist(allow_guest = True)
 def get_payment_entry(username):
-	p_entry = frappe.db.sql("""Select pe.name,pe.posting_date,pe.mode_of_payment,pe.vehicle_no,pe.party_name,pe.paid_amount from `tabPayment Entry` as pe where pe.owner='{0}' and pe.docstatus=0 ORDER BY pe.name DESC""".format(username),as_dict = True)
+	p_entry = frappe.db.sql("""Select pe.name,pe.posting_date,pe.mode_of_payment,pe.vehicle_no,pe.party_name,pe.paid_amount,pe.status from `tabPayment Entry` as pe where pe.owner='{0}' ORDER BY pe.name DESC""".format(username),as_dict = True)
 	return p_entry
 
 
@@ -505,6 +505,7 @@ def create_advance(**args):
 			doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
 		doc.linked_final_trip_sheet = fts.name
 		doc.save(ignore_permissions = True)
+		doc.submit()
 		return "Advance Created"
 
 
@@ -535,6 +536,7 @@ def create_advance(**args):
 				doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
 		doc.linked_final_trip_sheet = fts.name
 		doc.save(ignore_permissions = True)
+		doc.submit()
 		return "Advance Created"
 
 
