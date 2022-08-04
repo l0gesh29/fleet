@@ -310,10 +310,12 @@
    "label": "Market Lorry Hire"
   },
   {
+   "allow_on_submit": 1,
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
    "fieldname": "market_advance_amount_c",
    "fieldtype": "Currency",
-   "label": "Market Advance Amount"
+   "label": "Market Advance Amount",
+   "read_only": 1
   },
   {
    "depends_on": "eval:doc.vehicle_type == 'Market Vehicle'",
@@ -344,10 +346,12 @@
    "label": "Lorry Hire"
   },
   {
+   "allow_on_submit": 1,
    "depends_on": "eval:doc.vehicle_type == 'Own Vehicle'",
    "fieldname": "advance_amount",
    "fieldtype": "Currency",
-   "label": "Advance Amount"
+   "label": "Advance Amount",
+   "read_only": 1
   },
   {
    "allow_on_submit": 1,
@@ -500,7 +504,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-06-25 11:41:26.742881",
+ "modified": "2022-08-01 11:21:22.431486",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",
