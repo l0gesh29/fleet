@@ -1,12 +1,13 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "TO.#####",
+ "autoname": "naming_series:",
  "creation": "2021-12-11 18:09:33.739322",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "consignor_c",
   "amended_from",
   "loading_point_c",
@@ -219,6 +220,15 @@
    "fieldtype": "Data",
    "label": "No of Vehicles",
    "read_only": 1
+  },
+  {
+   "default": "TO.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "TO.#####",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -238,7 +248,7 @@
    "link_fieldname": "linked_trip_order_c"
   }
  ],
- "modified": "2022-06-20 18:24:28.129980",
+ "modified": "2022-08-01 13:40:57.761866",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Trip Sheet",

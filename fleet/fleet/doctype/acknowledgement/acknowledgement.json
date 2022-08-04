@@ -1,12 +1,13 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "ACK.####",
+ "autoname": "naming_series:",
  "creation": "2022-03-04 10:19:34.568612",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "consignor_c",
   "consignor_mobile_no_c",
   "loading_point_c",
@@ -436,6 +437,15 @@
    "fieldtype": "Link",
    "label": "Final Trip Sheet",
    "options": "Final Trip Sheet"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "ACK.####",
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -447,7 +457,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-06-14 12:50:34.004114",
+ "modified": "2022-08-01 13:43:46.592505",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Acknowledgement",
