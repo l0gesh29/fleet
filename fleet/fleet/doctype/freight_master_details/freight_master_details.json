@@ -1,0 +1,77 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-09-05 14:09:39.696233",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "account_name_c",
+  "loading_point_c",
+  "destination_c",
+  "vehicle_c",
+  "amount",
+  "consignee_c",
+  "agent_c"
+ ],
+ "fields": [
+  {
+   "fieldname": "account_name_c",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Account Name"
+  },
+  {
+   "fieldname": "loading_point_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Loading Point",
+   "options": "Destination"
+  },
+  {
+   "fieldname": "destination_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Destination",
+   "options": "Destination"
+  },
+  {
+   "fieldname": "vehicle_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Vehicle",
+   "options": "Truck Type"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Data",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "consignee_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Consignee",
+   "options": "Consignee"
+  },
+  {
+   "fieldname": "agent_c",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Agent",
+   "options": "Company"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-09-05 14:09:39.696233",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Freight Master Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -113,20 +113,21 @@ def make_payment_entry(frm):
 	pe = frappe.new_doc("Payment Entry")
 	if val.vehicle_type == "Own Vehicle":
 		pe=frappe.new_doc("Payment Entry")
-		pe.payment_type="Receive"
+		pe.payment_type="Pay"
 		pe.mode_of_payment="NEFT/RTGS/IMPS"
 		pe.vehicle_no = val.vehicle_reg_no
-		pe.party_type="Customer"
-		pe.party=val.customer
-		pe.party_name=val.customer
+		pe.party_type="Supplier"
+#		pe.party=""
+#		pe.party_name=""
 		pe.target_exchange_rate=1
 #		pe.base_received_amount=self.advance_amount
 		pe.paid_from= frappe.db.get_value("Company",{},"default_receivable_account")
 		pe.paid_to= frappe.db.get_value("Company",{},"default_cash_account")
 		pe.paid_from_account_currency="INR"
 		pe.paid_to_account_currency="INR"
-		pe.append("references",{"reference_doctype":"Final Trip Sheet","reference_name":val.name,"total_amount":val.total_lorry_hire,"outstanding_amount":val.total_lorry_hire,"allocated_amount":val.advance_amount})
-		#pe.save()
+		pe.append("references",{"reference_doctype":"Final Trip Sheet","reference_name":val.name,"total_amount":val.lorry_hire,"outstanding_amount":val.outstanding_amount,"allocated_amount":val.outstanding_amount})
+		pe.paid_amount = val.total_lorry_hire
+	#	pe.save(ignore_permissions = True)
 		return pe
 
 
@@ -155,3 +156,15 @@ def get_address(val):
 	address=get_address_display(address_name)
 	return address_name
 
+
+
+@frappe.whitelist()
+def provider(provider):
+	return frappe.db.get_list("Provider",{"name":provider},["beneficiary_name_c","account_no","ifsc_c","branch_c"])
+
+
+#@frappe.whitelist()
+#def fil_cons():
+#	if final_trip_sheet.destination =="consignee.destination":
+#	data=frappe.db.get_list(Consignee,fields=["consignee"])
+#	return data

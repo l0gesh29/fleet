@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-09-01 00:29:57.120747",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "consigne_no",
+  "trip_id",
+  "load_id_1",
+  "load_id_2",
+  "from",
+  "to",
+  "invoice_no",
+  "no_of_cases",
+  "vehicle_no",
+  "vehicle_type",
+  "distributor",
+  "freight",
+  "incentive",
+  "toll",
+  "cng_variable_cost",
+  "total_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "consigne_no",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Consign No",
+   "options": "Acknowledgement"
+  },
+  {
+   "fieldname": "trip_id",
+   "fieldtype": "Data",
+   "label": "Trip ID"
+  },
+  {
+   "fieldname": "load_id_1",
+   "fieldtype": "Data",
+   "label": "Load Id 1"
+  },
+  {
+   "fieldname": "load_id_2",
+   "fieldtype": "Data",
+   "label": "Load Id 2"
+  },
+  {
+   "fieldname": "from",
+   "fieldtype": "Data",
+   "label": "From"
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Data",
+   "label": "To"
+  },
+  {
+   "fieldname": "invoice_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Invoice No"
+  },
+  {
+   "fieldname": "no_of_cases",
+   "fieldtype": "Data",
+   "label": "No Of Cases"
+  },
+  {
+   "fieldname": "vehicle_no",
+   "fieldtype": "Data",
+   "label": "Vehicle No"
+  },
+  {
+   "fieldname": "vehicle_type",
+   "fieldtype": "Data",
+   "label": "Vehicle Type"
+  },
+  {
+   "fieldname": "distributor",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Distributor"
+  },
+  {
+   "fieldname": "freight",
+   "fieldtype": "Link",
+   "label": "Freight",
+   "options": "Freight Master"
+  },
+  {
+   "fieldname": "incentive",
+   "fieldtype": "Data",
+   "label": "Incentive"
+  },
+  {
+   "fieldname": "toll",
+   "fieldtype": "Data",
+   "label": "Toll"
+  },
+  {
+   "fieldname": "cng_variable_cost",
+   "fieldtype": "Data",
+   "label": "CNG Variable Cost"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-09-05 14:11:12.763229",
+ "modified_by": "Administrator",
+ "module": "Fleet",
+ "name": "Acknowledgement Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -10,6 +10,11 @@ frappe.ui.form.on('Acknowledgement', {
 				frm.events.create_payment_entry(frm);
 			});
 		}
+		if((frm.doc.docstatus == 1 )&& (!frm.doc.sales_invoice)){
+			frm.add_custom_button(__('Create Sales Invoice'),()=>{
+                                frm.events.create_sales_invoice(frm);
+                        });
+		}
 	},
 
 
@@ -26,7 +31,40 @@ frappe.ui.form.on('Acknowledgement', {
 //                      	frappe.set_route("Form", doc[0].doctype, doc[0].name);
 			},
 			});
-	}
+	},
+	create_sales_invoice:function(frm){
+		let d = new frappe.ui.Dialog({
+    		title: 'Enter Customer',
+    		fields: [
+        			{
+		        	    label: 'Customer',
+	        		    fieldname: 'customer',
+	        		    fieldtype: 'Link',
+				    options: 'Customer',
+				    reqd: 1
+	        		}
+    			],
+   		 primary_action_label: 'Submit',
+   		 primary_action(values) {
+//       		 console.log(values);
+        	 d.hide();
+			return frappe.call({
+                        	method:"fleet.fleet.doctype.acknowledgement.acknowledgement.create_sales_invoice",
+                       	 	args: {
+                        	        name:frm.doc.name,
+					customer:values.customer
+                        	},
+                       	 	callback: function (r)
+                        	{
+                        	      var doc = frappe.model.sync(r.message);
+                              		frappe.set_route("Form", doc[0].doctype, doc[0].name);
+                        	},
+                        });
+    		}
+		});
+
+		d.show();
+        },
 
 });
 

@@ -1,12 +1,13 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "TA.####",
+ "autoname": "naming_series:",
  "creation": "2022-01-18 17:15:29.188597",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "vehicle_type",
   "reference_c",
   "customer",
@@ -384,6 +385,14 @@
    "fieldname": "rc_copy",
    "fieldtype": "Attach Image",
    "label": "RC Copy"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "TA.####",
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
