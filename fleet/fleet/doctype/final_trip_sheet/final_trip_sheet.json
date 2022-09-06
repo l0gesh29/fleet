@@ -21,6 +21,7 @@
   "branch_c",
   "destination_c",
   "consignee_c",
+  "vendor_code",
   "consignee_email",
   "consignee_mobile_no_c",
   "reference_c",
@@ -497,12 +498,19 @@
    "label": "Email"
   },
   {
+<<<<<<< HEAD
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
    "options": "FTS.####",
    "read_only": 1,
    "reqd": 1
+=======
+   "fetch_from": "consignee_c.vendor_code_c",
+   "fieldname": "vendor_code",
+   "fieldtype": "Data",
+   "label": "Vendor Code"
+>>>>>>> b53785db6131c271c11e58fb043c50087b4fdf2b
   }
  ],
  "index_web_pages_for_search": 1,
@@ -514,7 +522,11 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
+<<<<<<< HEAD
  "modified": "2022-09-05 17:49:44.703831",
+=======
+ "modified": "2022-09-05 12:16:13.883473",
+>>>>>>> b53785db6131c271c11e58fb043c50087b4fdf2b
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",
