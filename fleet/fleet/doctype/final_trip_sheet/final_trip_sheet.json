@@ -1,12 +1,13 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "FTS.####",
+ "autoname": "naming_series:",
  "creation": "2022-01-20 09:14:38.703475",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "consignor_c",
   "consignor_email",
   "email",
@@ -132,6 +133,7 @@
    "options": "Destination"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "date_c",
    "fieldtype": "Date",
    "label": "Date"
@@ -330,6 +332,7 @@
    "label": "Market Driver Mobile"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "vehicle_type",
    "fieldtype": "Select",
    "label": "Allocation Type",
@@ -424,8 +427,7 @@
    "fieldname": "payment_reference_c",
    "fieldtype": "Link",
    "label": "Payment Reference",
-   "options": "Payment Entry",
-   "read_only": 1
+   "options": "Payment Entry"
   },
   {
    "allow_on_submit": 1,
@@ -493,6 +495,14 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "Email"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "FTS.####",
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -504,7 +514,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-08-01 11:21:22.431486",
+ "modified": "2022-09-05 17:49:44.703831",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",
