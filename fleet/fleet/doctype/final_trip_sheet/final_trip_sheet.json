@@ -20,6 +20,7 @@
   "branch_c",
   "destination_c",
   "consignee_c",
+  "vendor_code",
   "consignee_email",
   "consignee_mobile_no_c",
   "reference_c",
@@ -493,6 +494,12 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "Email"
+  },
+  {
+   "fetch_from": "consignee_c.vendor_code_c",
+   "fieldname": "vendor_code",
+   "fieldtype": "Data",
+   "label": "Vendor Code"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -504,7 +511,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-08-01 11:21:22.431486",
+ "modified": "2022-09-05 12:16:13.883473",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",
