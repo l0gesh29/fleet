@@ -112,8 +112,7 @@
    "default": "0",
    "fieldname": "one_way",
    "fieldtype": "Check",
-   "label": "One Way",
-   "read_only": 1
+   "label": "One Way"
   },
   {
    "default": "0",
@@ -198,12 +197,10 @@
    "options": "Customer"
   },
   {
-   "allow_on_submit": 1,
    "fieldname": "vehicle_type_c",
    "fieldtype": "Link",
    "label": "Vehicle Type",
-   "options": "Truck Type",
-   "read_only": 1
+   "options": "Truck Type"
   },
   {
    "allow_on_submit": 1,
@@ -398,7 +395,7 @@
    "link_fieldname": "linked_trip_allocation_c"
   }
  ],
- "modified": "2022-07-28 15:49:57.104300",
+ "modified": "2022-08-23 11:46:44.991566",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Trip Allocation",
