@@ -404,11 +404,7 @@
    "link_fieldname": "linked_trip_allocation_c"
   }
  ],
-<<<<<<< HEAD
- "modified": "2022-08-01 13:42:04.992455",
-=======
  "modified": "2022-08-23 11:46:44.991566",
->>>>>>> b53785db6131c271c11e58fb043c50087b4fdf2b
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Trip Allocation",
