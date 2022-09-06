@@ -7,7 +7,7 @@ from frappe.core.doctype.user.user import generate_keys
 import base64
 from frappe.utils import now
 from frappe.contacts.doctype.address.address import get_address_display
-
+from erpnext.accounts.doctype.payment_entry.payment_entry import get_company_defaults
 
 @frappe.whitelist(allow_guest = True)
 def update_trip_order(**args):
@@ -35,6 +35,7 @@ def create_trip_order(**args):
 	doc.loading_point_c = args["loading_point_c"]
 	doc.branch = args["branch"]
 	doc.destination_c = args["destination_c"]
+	doc.date_c = args["date"]
 	if args['one_way'] == 1:
 		doc.one_way = 1
 	elif args["two_way"] == 1:
@@ -216,9 +217,9 @@ def consignor():
 
 
 @frappe.whitelist(allow_guest = True)
-def consignee():
+def consignee(destination):
 	frappe.set_user('Administrator')
-	consignee = frappe.db.get_list("Consignee",{},"name")
+	consignee = frappe.db.get_list("Consignee",{"loading_point_c":destination},["name","vendor_code_c"])
 	return consignee
 
 @frappe.whitelist(allow_guest = True)
@@ -479,13 +480,20 @@ def trip_allocation_status(name):
 @frappe.whitelist(allow_guest = True)
 def create_advance(**args):
 	fts = frappe.get_doc("Final Trip Sheet",args["fts"])
+	if args["paid_amount"] > fts.outstanding_amount:
+		return "Paid amount is greater than outstanding"
 	if fts.vehicle_type == "Own Vehicle":
 		doc = frappe.new_doc("Payment Entry")
+		doc.payment_type = "Pay"
 		doc.mode_of_payment = args["mode_of_payment"]
+		if args["provider"]:
+			doc.provider_c = args["provider"]
+		if args["pump"]:
+			doc.pump = args["pump"]
 		doc.beneficiary_name_c = args["beneficiary_name_c"]
 		doc.account_no = args["account_no"]
-		doc.party_type="Customer"
-		doc.party=fts.customer
+		doc.party_type = "Supplier"
+		doc.party = args["supplier"]
 		doc.branch_c = args["branch_c"]
 		doc.vehicle_no = args["vehicle_no"]
 		doc.ifsc_c = args["ifsc_c"]
@@ -494,8 +502,8 @@ def create_advance(**args):
 		doc.target_exchange_rate=1
 		doc.paid_from_account_currency="INR"
 		doc.paid_to_account_currency="INR"
-		doc.paid_from=frappe.db.get_value("Company",{},"default_receivable_account")
-		doc.paid_to=frappe.db.get_value("Company",{},"default_cash_account")
+		doc.paid_from=frappe.db.get_value("Company",{},"default_cash_account")
+#		doc.paid_to=frappe.db.get_value("Company",{},"default_cash_account")
 		doc.reference_no = args["reference_no"]
 		doc.paid_amount = args["paid_amount"]
 		doc.reference_date = args["reference_date"]
@@ -505,6 +513,7 @@ def create_advance(**args):
 			doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
 		doc.linked_final_trip_sheet = fts.name
 		doc.save(ignore_permissions = True)
+		#get_company_defaults(Southern Cargo Logistics Private Limited)
 		doc.submit()
 		return "Advance Created"
 
@@ -513,10 +522,14 @@ def create_advance(**args):
 		doc = frappe.new_doc("Payment Entry")
 		doc.payment_type = "Pay"
 		doc.mode_of_payment = args["mode_of_payment"]
+		if args["provider"]:
+			doc.provider_c = args["provider"]
+		if args["pump"]:
+			doc.pump_c = args["pump"]
 		doc.beneficiary_name_c = args["beneficiary_name_c"]
 		doc.account_no = args["account_no"]
 		doc.party_type="Supplier"
-		doc.party=fts.supplier
+		doc.party = args["supplier"]
 		doc.branch_c = args["branch_c"]
 		doc.vehicle_no = args["vehicle_no"]
 		doc.ifsc_c = args["ifsc_c"]
@@ -525,8 +538,8 @@ def create_advance(**args):
 		doc.target_exchange_rate=1
 		doc.paid_from_account_currency="INR"
 		doc.paid_to_account_currency="INR"
-		doc.paid_from=frappe.db.get_value("Company",{},"default_receivable_account")
-		doc.paid_to=frappe.db.get_value("Company",{},"default_cash_account")
+		doc.paid_from = frappe.db.get_value("Company",{},"default_cash_account")
+	#	doc.paid_to=frappe.db.get_value("Company",{},"default_cash_account")
 		doc.reference_no = args["reference_no"]
 		doc.paid_amount = args["paid_amount"]
 		doc.reference_date = args["reference_date"]
@@ -594,3 +607,106 @@ def ack_list(username):
 		ack_details[0]["deduction"] = deduction
 		ack_list.append(ack_details[0])
 	return ack_list
+
+
+
+
+@frappe.whitelist(allow_guest = True)
+def create_settlement(**args):
+	ack = frappe.get_doc("Acknowledgement",args["ack"])
+	if ack.vehicle_type == "Own Vehicle":
+		doc = frappe.new_doc("Payment Entry")
+		doc.payment_type = "Receive"
+		doc.mode_of_payment = args["mode_of_payment"]
+		doc.beneficiary_name_c = args["beneficiary_name_c"]
+		doc.account_no = args["account_no"]
+		doc.party_type="Customer"
+		doc.party=ack.customer
+		doc.branch_c = args["branch_c"]
+		doc.vehicle_no = args["vehicle_no"]
+		doc.ifsc_c = args["ifsc_c"]
+		doc.received_amount = args["paid_amount"]
+		doc.base_received_amount = args["paid_amount"]
+		doc.target_exchange_rate=1
+		doc.paid_from_account_currency="INR"
+		doc.paid_to_account_currency="INR"
+		doc.paid_from=frappe.db.get_value("Company",{},"default_receivable_account")
+		doc.paid_to=frappe.db.get_value("Company",{},"default_cash_account")
+		doc.reference_no = args["reference_no"]
+		doc.paid_amount = args["paid_amount"]
+		doc.reference_date = args["reference_date"]
+		doc.append("references",{"reference_doctype":"Acknowledgement","reference_name":ack.name,"total_amount":ack.lorry_hire,"outstanding_amount":ack.outstanding_amount,"allocated_amount":args["paid_amount"]})
+		# if args["commission"]:
+		# 	doc.paid_amount = args["paid_amount"] - args["commission"]
+		# 	doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
+		doc.save()
+		doc.submit()
+		return "Settlement Created"
+
+
+	if ack.vehicle_type == "Market Vehicle":
+		doc = frappe.new_doc("Payment Entry")
+		doc.payment_type = "Pay"
+		doc.mode_of_payment = args["mode_of_payment"]
+		doc.beneficiary_name_c = args["beneficiary_name_c"]
+		doc.account_no = args["account_no"]
+		doc.party_type="Supplier"
+		doc.party=ack.supplier
+		doc.branch_c = args["branch_c"]
+		doc.vehicle_no = args["vehicle_no"]
+		doc.ifsc_c = args["ifsc_c"]
+		doc.received_amount = args["paid_amount"]
+		doc.base_received_amount = args["paid_amount"]
+		doc.target_exchange_rate=1
+		doc.paid_from_account_currency="INR"
+		doc.paid_to_account_currency="INR"
+		doc.paid_from=frappe.db.get_value("Company",{},"default_receivable_account")
+		doc.paid_to=frappe.db.get_value("Company",{},"default_cash_account")
+		doc.reference_no = args["reference_no"]
+		doc.paid_amount = args["paid_amount"]
+		doc.reference_date = args["reference_date"]
+		doc.append("references",{"reference_doctype":"Acknowledgement","reference_name":ack.name,"total_amount":ack.market_lorry_hire_c,"outstanding_amount":ack.outstanding_amount,"allocated_amount":args["paid_amount"]})
+		# if args["commission"]:
+		# 	doc.paid_amount = args["paid_amount"] - args["commission"]
+		# 	doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
+		#doc.linked_final_trip_sheet = ack.name
+		doc.save(ignore_permissions = True)
+		doc.submit()
+		return "Settlement Created"
+
+
+@frappe.whitelist(allow_guest = True)
+def provider():
+	provider_c = frappe.db.sql("""Select name from `tabProvider`""",as_dict = True)
+	return provider_c
+
+
+@frappe.whitelist(allow_guest = True)
+def provider_details(provider_name):
+	p_details = frappe.db.sql("""Select beneficiary_name_c,ifsc_c,account_no,branch_c,supplier from `tabProvider` where name = '{0}' """.format(provider_name),as_dict = True)
+	return p_details
+
+
+@frappe.whitelist(allow_guest = True)
+def supplier():
+	supplier_c = frappe.db.sql("""Select name from `tabSupplier` where disabled = 0 """,as_dict=True)
+	return supplier_c
+
+
+@frappe.whitelist(allow_guest = True)
+def pump():
+        pump = frappe.db.sql("""Select name from `tabPump`""",as_dict = True)
+        return pump
+
+
+
+@frappe.whitelist(allow_guest = True)
+def pump_details(pump_name):
+        p_details = frappe.db.sql("""Select beneficiary_name_c,ifsc_c,account_no,branch_c,supplier from `tabPump` where name = '{0}' """.format(pump_name),as_dict = True)
+        return p_details
+
+
+@frappe.whitelist(allow_guest = True)
+def supplier_details(name):
+        p_details = frappe.db.sql("""Select beneficiary_name_c,ifsc_c,account_no_c,branch_c,name as supplier from `tabSupplier` where name = '{0}' """.format(name),as_dict = True)
+        return p_details
