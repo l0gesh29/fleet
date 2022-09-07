@@ -509,8 +509,10 @@ def create_advance(**args):
 		doc.reference_date = args["reference_date"]
 		doc.append("references",{"reference_doctype":"Final Trip Sheet","reference_name":fts.name,"total_amount":fts.lorry_hire,"outstanding_amount":fts.outstanding_amount,"allocated_amount":args["paid_amount"]})
 		if args["commission"]:
-			doc.paid_amount = args["paid_amount"] - args["commission"]
-			doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
+			doc.paid_amount = args["paid_amount"]
+			doc.commission = args["commission"]
+			doc.without_commission = args["paid_amount"] - args["commission"]
+		#	doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
 		doc.linked_final_trip_sheet = fts.name
 		doc.save(ignore_permissions = True)
 		#get_company_defaults(Southern Cargo Logistics Private Limited)
@@ -545,8 +547,10 @@ def create_advance(**args):
 		doc.reference_date = args["reference_date"]
 		doc.append("references",{"reference_doctype":"Final Trip Sheet","reference_name":fts.name,"total_amount":fts.market_lorry_hire_c,"outstanding_amount":fts.outstanding_amount,"allocated_amount":args["paid_amount"]})
 		if args["commission"]:
-				doc.paid_amount = args["paid_amount"] - args["commission"]
-				doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
+				doc.paid_amount = args["paid_amount"]
+				doc.commission = args["commission"]
+				doc.without_commission = args["paid_amount"] - args["commission"]
+				#doc.append("deductions",{"account":"Commission on Sales - SCC","cost_center":"Main - SCC","amount":args['commission']})
 		doc.linked_final_trip_sheet = fts.name
 		doc.save(ignore_permissions = True)
 		doc.submit()

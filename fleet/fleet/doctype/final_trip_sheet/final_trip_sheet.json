@@ -502,7 +502,8 @@
    "fieldname": "vendor_code",
    "fieldtype": "Data",
    "label": "Vendor Code"
- },{
+  },
+  {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
@@ -520,7 +521,7 @@
    "link_fieldname": "linked_final_trip_sheet"
   }
  ],
- "modified": "2022-09-05 17:49:44.703831",
+ "modified": "2022-09-06 18:27:25.835398",
  "modified_by": "Administrator",
  "module": "Fleet",
  "name": "Final Trip Sheet",
