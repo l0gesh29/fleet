@@ -199,7 +199,7 @@ def login(mobile_no, password):
 		api_secret = api_secret["api_secret"]
 	api_key=frappe.db.get_value("User",{'name':doc_name},'api_key')
 	frappe.local.response["message"] = "Logged In"
-	frappe.local.response["login"]={"api_key":api_key , "api_secret":api_secret,"username":doc_name}
+	frappe.local.response["login"]={"api_key":api_key , "api_secret":api_secret,"username":doc_name,"user_type":frappe.db.get_value("User",{"mobile_no":mobile_no},"mobile_user_type")}
 	#except Exception as e:
 	#	frappe.local.response["message"] = {
 	#		"success_key":0
@@ -321,39 +321,70 @@ def vehicle_type_filter(consignor):
 
 @frappe.whitelist(allow_guest = True)
 def trip_order(username):
-	return frappe.db.sql("""select t.name as order_no ,t.docstatus ,t.consignor_c, t.branch ,t.loading_point_c , t.destination_c , t.one_way , t.two_way ,t.no_of_vehicles,t.date_c,t.vehicle_type_c,t.product_group_c,ta.name as allocation_no from `tabTrip Sheet` as t join `tabTrip Allocation` as ta on t.name = ta.linked_trip_order_c where t.owner = '{0}'and t.docstatus!=2 Order By t.name DESC""".format(username),as_dict=True)
-
+	if not frappe.db.get_value("User",{"name":username},"branch"):
+		return frappe.db.sql("""select t.name as order_no ,t.docstatus ,t.consignor_c, t.branch ,t.loading_point_c , t.destination_c , t.one_way , t.two_way ,t.no_of_vehicles,t.date_c,t.vehicle_type_c,t.product_group_c,ta.name as allocation_no from `tabTrip Sheet` as t join `tabTrip Allocation` as ta on t.name = ta.linked_trip_order_c where t.owner = '{0}'and t.docstatus!=2 Order By t.name DESC""".format(username),as_dict=True)
+	if frappe.db.get_value("User",{"name":username},"branch"):
+		return frappe.db.sql("""select t.name as order_no ,t.docstatus ,t.consignor_c, t.branch ,t.loading_point_c , t.destination_c , t.one_way , t.two_way ,t.no_of_vehicles,t.date_c,t.vehicle_type_c,t.product_group_c,ta.name as allocation_no from `tabTrip Sheet` as t join `tabTrip Allocation` as ta on t.name = ta.linked_trip_order_c where t.branch = '{0}'and t.docstatus!=2 Order By t.name DESC""".format(frappe.db.get_value("User",{"name":username},"branch")),as_dict=True)
 
 
 @frappe.whitelist(allow_guest = True)
 def get_trip_allocation(username,type):
-	if type == "Own Vehicle":
-		ta = frappe.db.sql("""select name,vehicle_type,reference_c,customer,vehicle_reg_no,vehicle_type_c,company,driver,driver_mobile,pan_no_c,branch_c,consignor_c,destination_c,loading_point_c,
-		date_c,one_way,two_way,toll,hamali,lorry_hire,total_lorry_hire,pan_h_name_c,docstatus,
-		linked_trip_order_c from `tabTrip Allocation` where owner='{0}' and docstatus!=2 and vehicle_type='{1}' Order By name DESC""".format(username,type),as_dict=True)
-		return ta
-	if type == "Market Vehicle":
-		ta = frappe.db.sql("""select name,vehicle_type,reference_c,supplier,market_vehicle_no_c as vehicle_reg_no,vehicle_type_c,company,market_driver_c as driver,pan_h_name_m,docstatus,
-		market_driver_mobile_c as driver_mobile,pan_no_m,branch_c,consignor_c,destination_c,loading_point_c,date_c,market_toll,market_hamali,market_lorry_hire_c,market_total_lorry_hire,
-		one_way,two_way,linked_trip_order_c from `tabTrip Allocation` where owner='{0}' and docstatus!=2 and vehicle_type='{1}' Order By name DESC""".format(username,type),as_dict=True)
-		return ta
+	if not frappe.db.get_value("User",{"name":username},"branch"):
+		if type == "Own Vehicle":
+			ta = frappe.db.sql("""select name,vehicle_type,reference_c,customer,vehicle_reg_no,vehicle_type_c,company,driver,driver_mobile,pan_no_c,branch_c,consignor_c,destination_c,loading_point_c,
+			date_c,one_way,two_way,toll,hamali,lorry_hire,total_lorry_hire,pan_h_name_c,docstatus,
+			linked_trip_order_c from `tabTrip Allocation` where owner='{0}' and docstatus!=2 and vehicle_type='{1}' Order By name DESC""".format(username,type),as_dict=True)
+			return ta
+		if type == "Market Vehicle":
+			ta = frappe.db.sql("""select name,vehicle_type,reference_c,supplier,market_vehicle_no_c as vehicle_reg_no,vehicle_type_c,company,market_driver_c as driver,pan_h_name_m,docstatus,
+			market_driver_mobile_c as driver_mobile,pan_no_m,branch_c,consignor_c,destination_c,loading_point_c,date_c,market_toll,market_hamali,market_lorry_hire_c,market_total_lorry_hire,
+			one_way,two_way,linked_trip_order_c from `tabTrip Allocation` where owner='{0}' and docstatus!=2 and vehicle_type='{1}' Order By name DESC""".format(username,type),as_dict=True)
+			return ta
+	if frappe.db.get_value("User",{"name":username},"branch"):
+		branch = frappe.db.get_value("User",{"name":username},"branch")
+		if type == "Own Vehicle":
+			ta = frappe.db.sql("""select name,vehicle_type,reference_c,customer,vehicle_reg_no,vehicle_type_c,company,driver,driver_mobile,pan_no_c,branch_c,consignor_c,destination_c,loading_point_c,  
+			date_c,one_way,two_way,toll,hamali,lorry_hire,total_lorry_hire,pan_h_name_c,docstatus,
+			linked_trip_order_c from `tabTrip Allocation` where docstatus!=2 and vehicle_type='{0}' and branch_c = '{1}' Order By name DESC""".format(type,branch),as_dict=True)
+			return ta
+		if type == "Market Vehicle":
+			ta = frappe.db.sql("""select name,vehicle_type,reference_c,supplier,market_vehicle_no_c as vehicle_reg_no,vehicle_type_c,company,market_driver_c as driver,pan_h_name_m,docstatus,
+			market_driver_mobile_c as driver_mobile,pan_no_m,branch_c,consignor_c,destination_c,loading_point_c,date_c,market_toll,market_hamali,market_lorry_hire_c,market_total_lorry_hire,
+			one_way,two_way,linked_trip_order_c from `tabTrip Allocation` where docstatus!=2 and vehicle_type='{0}' and branch_c = '{1}'Order By name DESC""".format(type,branch),as_dict=True)
+			return ta
+
+
 
 
 @frappe.whitelist(allow_guest = True)
 def get_final_trip_sheet(username):
-	fts = frappe.db.sql("""select name from `tabFinal Trip Sheet` where owner='{0}' and docstatus!=2 Order By name DESC """.format(username),as_dict=True)
-	fts_list = []
-	for row in fts:
-		doct = frappe.get_doc("Final Trip Sheet",row.name)
-		if doct.rc_copy:
-			doct.rc_copy = "http://68.183.95.177/" + doct.rc_copy
-		if doct.pan_copy:
-			doct.pan_copy = "http://68.183.95.177/" + doct.pan_copy
-		doc = frappe._dict(doct.__dict__)
-		doc.pop("_meta")
-		fts_list.append(doc)
-	return fts_list
-
+	if not frappe.db.get_value("User",{"name":username},"branch"):
+		fts = frappe.db.sql("""select name from `tabFinal Trip Sheet` where owner='{0}' and docstatus!=2 Order By name DESC """.format(username),as_dict=True)
+		fts_list = []
+		for row in fts:
+			doct = frappe.get_doc("Final Trip Sheet",row.name)
+			if doct.rc_copy:
+				doct.rc_copy = "http://68.183.95.177/" + doct.rc_copy
+			if doct.pan_copy:
+				doct.pan_copy = "http://68.183.95.177/" + doct.pan_copy
+			doc = frappe._dict(doct.__dict__)
+			doc.pop("_meta")
+			fts_list.append(doc)
+		return fts_list
+	if frappe.db.get_value("User",{"name":username},"branch"):
+		branch = frappe.db.get_value("User",{"name":username},"branch")
+		fts = frappe.db.sql("""select name from `tabFinal Trip Sheet` where owner='{0}' and docstatus!=2 and branch_c = '{1}' Order By name DESC """.format(username,branch),as_dict=True)
+		fts_list = []
+		for row in fts:
+			doct = frappe.get_doc("Final Trip Sheet",row.name)
+			if doct.rc_copy:
+				doct.rc_copy = "http://68.183.95.177/" + doct.rc_copy
+			if doct.pan_copy:
+				doct.pan_copy = "http://68.183.95.177/" + doct.pan_copy
+			doc = frappe._dict(doct.__dict__)
+			doc.pop("_meta")
+			fts_list.append(doc)
+		return fts_list
 
 @frappe.whitelist(allow_guest = True)
 def amend(name):
